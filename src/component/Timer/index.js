@@ -1,10 +1,9 @@
 import React from 'react'
-import TimerLogic from './TimerLogic'
 
 const Timer = () => {
     return (
         <div>
-            <TimerLogic/>
+            <button>Despair</button>
         </div>
     )
 }
