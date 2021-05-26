@@ -22,7 +22,7 @@ npx start
 ```
 
 ## Contribution guide
-#### Read [Contribution guide](https://github.com/abubakrosamah/GapYear/blob/master/Contribution.md)
+#### Read [Contribution guide](https://github.com/the-sol/pomodoro/blob/main/Contribution.md)
 
 
 # Getting Started with Create React App
