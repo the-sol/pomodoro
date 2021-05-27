@@ -1,9 +1,9 @@
 import './App.css';
-import StartButton from './component/StartButton'
+import TimerArea from './component/TimerArea'
 const App = () => {
   return (
     <div>
-      <StartButton />
+      <TimerArea />
     </div>
   );
 }

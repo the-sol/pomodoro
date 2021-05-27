@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-const StartButton = () => {
-    return (
-        <div>
-            Start
-        </div>
-    )
+const StartStopButton = () => {
+ return (
+  <div>
+
+  </div>
+)
 }
 
-export default StartButton
+export default StartStopButton
