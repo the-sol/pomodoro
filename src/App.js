@@ -1,11 +1,10 @@
 import './App.css';
-import Timer from "./component/Timer"
-function App() {
+import StartButton from './component/StartButton'
+const App = () => {
   return (
     <div>
-    <Timer/>
+      <StartButton />
     </div>
-
   );
 }
 
