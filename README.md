@@ -1,4 +1,4 @@
-# Pomodoro Project
+## Pomodoro Project
 
 <img src="https://user-images.githubusercontent.com/69774407/119630519-b11e2480-be17-11eb-8f89-f1179db1948e.png" width="100" height="100">
 
