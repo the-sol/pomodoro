@@ -1,4 +1,4 @@
-## Pomodoro Project
+# Pomodoro Project
 
 <img src="https://user-images.githubusercontent.com/69774407/119630519-b11e2480-be17-11eb-8f89-f1179db1948e.png" width="100" height="100">
 
@@ -19,6 +19,40 @@ cd git clone https://github.com/the-sol/pomodoro.git
 ```
 ```
 npx start
+```
+
+## folder structure
+
+```
+├── LICENSE
+├── README.md
+├── package-lock.json
+├── package.json
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
+└── src
+    ├── App.css
+    ├── App.js
+    ├── App.test.js
+    ├── component
+    │   ├── StartButton
+    │   │   ├── ButtonLgic.js
+    │   │   ├── index.jsx
+    │   │   └── style.css
+    │   └── Timer
+    │       ├── TimerLogic.js
+    │       ├── index.jsx
+    │       └── style.css
+    ├── index.css
+    ├── index.js
+    ├── logo.svg
+    ├── reportWebVitals.js
+    └── setupTests.js
 ```
 
 ## Contribution guide
