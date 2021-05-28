@@ -4,6 +4,7 @@ const Timer = ({ Time }) => {
   const { hours, minutes, seconds } = Time;
   const [[hrs, mins, secs], setTime] = useState([hours, minutes, seconds]);
   const [start, setStart] = useState(false)
+  const [num,setNum] = useState(minutes)
 
   const StartHandler = () => {
     setStart(true)
@@ -12,7 +13,6 @@ const Timer = ({ Time }) => {
     setStart(false)
   }
   const tick = () => {
-    console.log('hello from tick again')
     if (hrs === 0 && mins === 0 && secs === 0)
       reset()
     else if (mins === 0 && secs === 0) {
@@ -23,17 +23,26 @@ const Timer = ({ Time }) => {
       setTime([hrs, mins, secs - 1]);
     }
   };
-  const reset = () => setTime([parseInt(hours), parseInt(minutes), parseInt(seconds)]);
+  const reset = () => {
+    setStart(false)
+    if(num==25){
+      setTime([parseInt(hours), parseInt(5), parseInt(seconds)])
+      setNum(5)
+    }
+     else{
+      setTime([parseInt(hours), parseInt(25), parseInt(seconds)])
+      setNum(25)
+     }
+  };
 
-
+ 
   useEffect(() => {
-    console.log('hello from useEffect')
     if (start) {
-      setTimeout(() => tick(), 1000);
+       setTimeout(() => tick(), 1000);    
     }
   });
 
-
+ 
 
   return (
     <div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import Timer from '../Timer'
 const TimerArea = () => {
-    const Time = {hours:0, minutes: 0, seconds: 5}
+    const Time = {hours:0, minutes: 25, seconds: 0}
     
     return (
         
