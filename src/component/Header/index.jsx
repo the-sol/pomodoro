@@ -1,8 +1,9 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 
 const Header = () => (
   <div>
-    <h1>hi</h1>
+    <Button type="button" className="btn btn-primary">Apple</Button>
   </div>
 );
 
