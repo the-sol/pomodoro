@@ -3,9 +3,13 @@ import React, { useState, useEffect } from 'react'
 const Timer = ({ Time }) => {
   const { hours, minutes, seconds } = Time;
   const [[hrs, mins, secs], setTime] = useState([hours, minutes, seconds]);
-  const [start,setStart] = useState(false)
-  const TimerHandler = () => {
+  const [start, setStart] = useState(false)
+
+  const StartHandler = () => {
     setStart(true)
+  }
+  const StopHandler = () => {
+    setStart(false)
   }
   const tick = () => {
     console.log('hello from tick again')
@@ -24,7 +28,7 @@ const Timer = ({ Time }) => {
 
   useEffect(() => {
     console.log('hello from useEffect')
-    if(start){
+    if (start) {
       setTimeout(() => tick(), 1000);
     }
   });
@@ -36,7 +40,8 @@ const Timer = ({ Time }) => {
       <p>{`${hrs.toString().padStart(2, '0')}:${mins
         .toString()
         .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`} </p>
-      <button onClick={TimerHandler}>Start</button>
+      <button onClick={StartHandler}>Start</button>
+      <button onClick={StopHandler}>Stop</button>
     </div>
   );
 }
