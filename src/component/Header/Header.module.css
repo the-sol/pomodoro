@@ -1,9 +1,9 @@
-.Pomologo {
+.pomo_logo {
     width: 40px;
     height: 30px;
 }
 
-.Setlogo {
+.setting_logo {
     width: 22px;
     height: 15px;
     position: relative;
@@ -11,7 +11,7 @@
     left: 7px;
 }
 
-.Loglogo {
+.login_logo {
     width: 22px;
     height: 15px;
     position: relative;

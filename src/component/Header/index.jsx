@@ -7,23 +7,21 @@ import SettingLogo from '../../Logo/SettingLogo.png'
 import LoginLogo from '../../Logo/LoginLogo.png'
 
 const Header = () => {
-    return (
-        <div>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Image className={styles.Pomologo} src={PomoLogo} rounded />
-                <Navbar.Brand href="#home">TheSol-pomodoro</Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="ml-auto">
-                        <Image className={styles.Setlogo} src={SettingLogo} rounded />
-                        <Nav.Link href="#setting">Setting</Nav.Link>
-                        <Image className={styles.Loglogo} src={LoginLogo} rounded />
-                        <Nav.Link href="#login">Login</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-        </div>
-    )
+  return (
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Image className={styles.pomo_logo} src={PomoLogo} rounded />
+      <Navbar.Brand href="#home">TheSol-pomodoro</Navbar.Brand>
+      <Navbar.Toggle/>
+      <Navbar.Collapse id="responsive-navbar-nav">
+      <Nav className="ml-auto">
+        <Image className={styles.setting_logo} src={SettingLogo} rounded />
+        <Nav.Link href="#setting">Setting</Nav.Link>
+        <Image className={styles.login_logo} src={LoginLogo} rounded />
+        <Nav.Link href="#login">Login</Nav.Link>
+      </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+  )
 }
 
 export default Header
