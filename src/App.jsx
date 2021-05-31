@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from './component/Header'
+import Header from './component/Header';
 
 const App = () => (
   <div>
