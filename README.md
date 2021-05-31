@@ -1,4 +1,64 @@
-# Getting Started with Create React App
+# Pomodoro Project
+
+<img src="https://user-images.githubusercontent.com/69774407/119630519-b11e2480-be17-11eb-8f89-f1179db1948e.png" width="100" height="100">
+
+The Pomodoro technique is a time management method. This technique helps in managing working time as it divides it into specific periods, each period  called pomodoro, where the length of the pomodoro is 25 minutes, and after every 25 minutes there is a  5-minute break, and if four pomodoro cycles are completed, there will be a 15-minute break.
+
+## Features of this site:
+
+- It contains a 25-minute timer (pomodoro period).
+- Contains a pause button to timer.
+- When the timer ends, five minutes are displayed with the start button.(short break).
+- When the short break finishes (5 min) Will come back to (pomodoro period).
+
+## How to run it?
+
+**requires [Node.js](https://nodejs.org/en/download/)** LTS Version: 14.17.0 to run.
+
+```
+git clone https://github.com/the-sol/pomodoro.git
+cd pomodoro
+npm install
+npm start
+```
+
+## Folder structure
+
+```
+├── LICENSE
+├── README.md
+├── package-lock.json
+├── package.json
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
+└── src
+    ├── App.css
+    ├── App.js
+    ├── App.test.js
+    ├── component
+    │   ├── StartButton
+    │   │   ├── ButtonLgic.js
+    │   │   ├── index.jsx
+    │   │   └── style.css
+    │   └── Timer
+    │       ├── TimerLogic.js
+    │       ├── index.jsx
+    │       └── style.css
+    ├── index.css
+    ├── index.js
+    ├── logo.svg
+    ├── reportWebVitals.js
+    └── setupTests.js
+```
+
+## Contributions
+
+We welcome and appreciate contributions of all kind to this repository. Please read the [contribution guide](CONTRIBUTING.md) for more details.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -44,27 +104,3 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
