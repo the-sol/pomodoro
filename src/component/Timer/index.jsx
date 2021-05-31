@@ -1,12 +1,9 @@
-import React from 'react'
-import TimerLogic from './TimerLogic'
+import React from 'react';
 
-const Timer = () => {
-    return (
-        <div>
-            <TimerLogic/>
-        </div>
-    )
-}
+const Timer = () => (
+  <div>
+    <button type="button"> Despair </button>
+  </div>
+);
 
-export default Timer
+export default Timer;
