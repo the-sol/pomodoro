@@ -1,10 +1,10 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import StartButton from './component/StartButton';
+import TimerArea from './component/TimerArea';
 
 const App = () => (
   <div>
-    <StartButton />
+    <TimerArea />
   </div>
 );
 
