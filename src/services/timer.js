@@ -11,7 +11,8 @@ export const INITIAL_PERIOD = PERIODS.work;
  * or calls timeOverCallback if the time is over.
  * @param {number} mins number of minutes
  * @param {number} secs number of seconds
- * @param {function} timeDecrementedCallback function to call when time is decremented but not over yet
+ * @param {function} timeDecrementedCallback function to call when time is
+ *   decremented but not over yet
  * @param {function} timeOverCallback function to call when time is over
  */
 export const decrementOneSec = (mins, secs, timeDecrementedCallback, timeOverCallback) => {
@@ -27,6 +28,7 @@ export const decrementOneSec = (mins, secs, timeDecrementedCallback, timeOverCal
 /**
  * A function that determins the next period for the timer
  * @param {object} currentPeriod the current period object
+ * @return {object} next period
  */
 export const determineNextPeriod = (currentPeriod) => {
   if (currentPeriod.id === 'work') {
