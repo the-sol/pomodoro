@@ -1,10 +1,12 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import StartButton from './component/StartButton';
+import TimeArea from './component/TimerArea';
 
 const App = () => (
-  <div>
-    <StartButton />
+  <div className="container">
+    <div>
+      <TimeArea />
+    </div>
   </div>
 );
 

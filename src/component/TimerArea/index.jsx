@@ -1,21 +1,17 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
-import styles from './TimerArea.module.css';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 const TimerArea = () => (
-  <div>
-    <Card className={styles.card}>
-      <Card.Body className={styles.card__body}>
-        <Card.Text className={styles.card__text}>
-          00:25:00
-        </Card.Text>
-        <div className={styles.card__buttons}>
-          <Button variant="dark" className={styles.card__start_btn} size="lg">Start &#128525;</Button>
-          <Button variant="danger" className={styles.card__stop_btn} size="lg">Stop &#128564;</Button>
-        </div>
-      </Card.Body>
-    </Card>
-  </div>
+  <Card>
+    <Card.Body className="text-center">
+      <h1>00:25:00</h1>
+      <div className="d-flex justify-content-around">
+        <Button variant="dark" size="lg">Start &#128525;</Button>
+        <Button variant="info" size="lg">Stop &#128564;</Button>
+      </div>
+    </Card.Body>
+  </Card>
 );
 
 export default TimerArea;
