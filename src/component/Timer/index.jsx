@@ -1,5 +1,5 @@
 /* eslint-disable react/require-default-props */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 const Timer = ({ initialTime }) => {
@@ -7,12 +7,14 @@ const Timer = ({ initialTime }) => {
   const [[hrs, mins, secs], setTime] = useState([hours, minutes, seconds]);
   const [isRunning, setIsRunning] = useState(false);
   const [currentPeriodMins, setCurrentPeriodMins] = useState(minutes);
+  const tickTimeoutId = useRef(0);
 
   const handleStartClick = () => {
     setIsRunning(true);
   };
   const StopHandler = () => {
     setIsRunning(false);
+    clearTimeout(tickTimeoutId.current);
   };
 
   const reset = () => {
@@ -39,7 +41,7 @@ const Timer = ({ initialTime }) => {
 
   useEffect(() => {
     if (isRunning) {
-      setTimeout(() => tick(), 1000);
+      tickTimeoutId.current = setTimeout(() => tick(), 1000);
     }
   });
 
