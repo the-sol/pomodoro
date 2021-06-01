@@ -24,6 +24,13 @@
       "react-app",
       "react-app/jest",
       "airbnb"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.js?(x)"
+        ]
+      }
     ]
   },
   "browserslist": {
