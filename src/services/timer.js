@@ -1,6 +1,6 @@
 export const PERIODS = {
-  work: { id: 'work', mins: 0, secs: 5 },
-  shortBrk: { id: 'short-brk', mins: 0, secs: 10 },
+  work: { id: 'work', mins: 25, secs: 0 },
+  shortBrk: { id: 'short-brk', mins: 5, secs: 0 },
 };
 
 export const INITIAL_PERIOD = PERIODS.work;

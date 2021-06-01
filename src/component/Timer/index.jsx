@@ -15,7 +15,7 @@ const Timer = () => {
     setIsRunning(true);
   };
 
-  const StopHandler = () => {
+  const handleStopClick = () => {
     setIsRunning(false);
     clearTimeout(tickTimeoutId.current);
   };
@@ -44,7 +44,7 @@ const Timer = () => {
         {' '}
       </p>
       <button type="button" onClick={handleStartClick}>Start</button>
-      <button type="button" onClick={StopHandler}>Stop</button>
+      <button type="button" onClick={handleStopClick}>Stop</button>
     </>
   );
 };
