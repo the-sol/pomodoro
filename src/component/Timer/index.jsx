@@ -11,15 +11,6 @@ const Timer = () => {
   const [currentPeriod, setCurrentPeriod] = useState(INITIAL_PERIOD);
   const tickTimeoutId = useRef(0);
 
-  const handleStartClick = () => {
-    setIsRunning(true);
-  };
-
-  const handleStopClick = () => {
-    setIsRunning(false);
-    clearTimeout(tickTimeoutId.current);
-  };
-
   useEffect(() => {
     if (!isRunning) {
       return;
@@ -35,6 +26,15 @@ const Timer = () => {
     const tick = () => decrementOneSec(mins, secs, setTime, reset);
     tickTimeoutId.current = setTimeout(tick, 1000);
   });
+
+  const handleStartClick = () => {
+    setIsRunning(true);
+  };
+
+  const handleStopClick = () => {
+    setIsRunning(false);
+    clearTimeout(tickTimeoutId.current);
+  };
 
   return (
     <>
