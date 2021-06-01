@@ -4,6 +4,9 @@ import {
   determineNextPeriod,
   INITIAL_PERIOD,
 } from '../../services/timer';
+import timeOverSound from './time-over-soundfx.wav';
+
+const timeOverSoundAudio = new Audio(timeOverSound);
 
 const Timer = () => {
   const [[mins, secs], setTime] = useState([INITIAL_PERIOD.mins, INITIAL_PERIOD.secs]);
@@ -17,6 +20,7 @@ const Timer = () => {
     }
 
     const reset = () => {
+      timeOverSoundAudio.play();
       setIsRunning(false);
       const nextPeriod = determineNextPeriod(currentPeriod);
       setCurrentPeriod(nextPeriod);
