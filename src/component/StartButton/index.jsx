@@ -1,11 +1,7 @@
 import React from 'react';
 
-const StartStopButton = () => {
- return (
-  <div>
+const StartStopButton = () => (
+  <div />
+);
 
-  </div>
-)
-}
-
-export default StartStopButton
+export default StartStopButton;
