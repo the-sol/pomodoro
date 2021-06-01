@@ -1,15 +1,11 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Timer from '../Timer';
 
 const TimerArea = () => (
   <Card>
     <Card.Body className="text-center">
-      <h1>00:25:00</h1>
-      <div className="d-flex justify-content-around">
-        <Button variant="dark" size="lg">Start &#128525;</Button>
-        <Button variant="info" size="lg">Stop &#128564;</Button>
-      </div>
+      <Timer />
     </Card.Body>
   </Card>
 );
