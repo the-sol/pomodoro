@@ -2,27 +2,27 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const Timer = ({ Time }) => {
-  const { hours, minutes, seconds } = Time;
+const Timer = ({ initialTime }) => {
+  const { hours, minutes, seconds } = initialTime;
   const [[hrs, mins, secs], setTime] = useState([hours, minutes, seconds]);
-  const [start, setStart] = useState(false);
-  const [num, setNum] = useState(minutes);
+  const [isRunning, setIsRunning] = useState(false);
+  const [currentPeriodMins, setCurrentPeriodMins] = useState(minutes);
 
-  const StartHandler = () => {
-    setStart(true);
+  const handleStartClick = () => {
+    setIsRunning(true);
   };
   const StopHandler = () => {
-    setStart(false);
+    setIsRunning(false);
   };
 
   const reset = () => {
-    setStart(false);
-    if (num === 25) {
+    setIsRunning(false);
+    if (currentPeriodMins === 25) {
       setTime([hours, 5, seconds]);
-      setNum(5);
+      setCurrentPeriodMins(5);
     } else {
       setTime([hours, 25, seconds]);
-      setNum(25);
+      setCurrentPeriodMins(25);
     }
   };
   const tick = () => {
@@ -38,27 +38,27 @@ const Timer = ({ Time }) => {
   };
 
   useEffect(() => {
-    if (start) {
+    if (isRunning) {
       setTimeout(() => tick(), 1000);
     }
   });
 
   return (
-    <div>
+    <>
       <p>
         {`${hrs.toString().padStart(2, '0')}:${mins
           .toString()
           .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`}
         {' '}
       </p>
-      <button type="button" onClick={StartHandler}> Start </button>
+      <button type="button" onClick={handleStartClick}> Start </button>
       <button type="button" onClick={StopHandler}>Stop</button>
-    </div>
+    </>
   );
 };
 
 Timer.propTypes = {
-  Time: PropTypes.shape({
+  initialTime: PropTypes.shape({
     hours: PropTypes.number,
     minutes: PropTypes.number,
     seconds: PropTypes.number,
