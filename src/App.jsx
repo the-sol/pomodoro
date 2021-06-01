@@ -1,10 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import StartButton from './component/StartButton';
+import styles from './App.module.css';
+import Footer from './component/Footer';
 
 const App = () => (
-  <div>
-    <StartButton />
+  <div className={styles.container}>
+    <Footer />
   </div>
 );
 
