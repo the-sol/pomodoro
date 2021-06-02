@@ -1,8 +1,7 @@
 import React from 'react';
-import styles from './Footer.module.css';
 
 const Footer = () => (
-  <footer className={styles.footer}>
+  <footer className="d-flex justify-content-center text-white bg-dark mt-auto">
     <p>© 2021 Copyright: Designed by Gap Year team &#128150;</p>
   </footer>
 );
