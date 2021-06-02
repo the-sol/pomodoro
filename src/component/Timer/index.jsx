@@ -13,7 +13,7 @@ const Timer = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [currentPeriod, setCurrentPeriod] = useState(INITIAL_PERIOD);
   const tickTimeoutId = useRef(0);
-
+  const counter = useRef(0);
   useEffect(() => {
     if (!isRunning) {
       return;
@@ -22,7 +22,11 @@ const Timer = () => {
     const reset = () => {
       timeOverSoundAudio.play();
       setIsRunning(false);
-      const nextPeriod = determineNextPeriod(currentPeriod);
+      counter.current += 1;
+      const nextPeriod = determineNextPeriod(currentPeriod, counter.current);
+      if (counter.current === 7) {
+        counter.current = 0;
+      }
       setCurrentPeriod(nextPeriod);
       setTime([nextPeriod.mins, nextPeriod.secs]);
     };
