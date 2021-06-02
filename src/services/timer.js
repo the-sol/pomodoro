@@ -33,11 +33,13 @@ export const decrementOneSec = (mins, secs, timeDecrementedCallback, timeOverCal
  * @return {object} next period
  */
 export const determineNextPeriod = (currentPeriod, counter) => {
-  if (currentPeriod.id === 'work' && counter < 7) {
-    return PERIODS.shortBrk;
-  } if (currentPeriod.id === 'short-brk' && counter < 7) {
-    return PERIODS.work;
+  if (counter === 7) {
+    return PERIODS.longBrk;
   }
 
-  return PERIODS.longBrk;
+  if (currentPeriod.id === 'work') {
+    return PERIODS.shortBrk;
+  }
+
+  return PERIODS.work;
 };
