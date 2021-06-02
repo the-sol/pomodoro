@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Button from 'react-bootstrap/Button';
 import {
   decrementOneSec,
   determineNextPeriod,
@@ -46,13 +47,15 @@ const Timer = () => {
 
   return (
     <>
-      <p>
+      <h1>
         {`${mins.toString().padStart(2, '0')}:
         ${secs.toString().padStart(2, '0')}`}
         {' '}
-      </p>
-      <button type="button" onClick={handleStartClick}>Start</button>
-      <button type="button" onClick={handleStopClick}>Stop</button>
+      </h1>
+      <div className="d-flex justify-content-around">
+        <Button variant="dark" size="lg" type="button" onClick={handleStartClick}>Start &#128525;</Button>
+        <Button variant="info" size="lg" type="button" onClick={handleStopClick}>Stop &#128564;</Button>
+      </div>
     </>
   );
 };

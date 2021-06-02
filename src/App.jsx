@@ -9,10 +9,10 @@ import Header from './component/Header';
 
 const App = () => (
   <div className="d-flex flex-column min-vh-100">
-    <Header />
-    <Container fluid>
-      <Row className="text-center">
-        <Col><TimerArea /></Col>
+    <Container fluid className="my-auto">
+      <Header />
+      <Row className="mt-3">
+        <Col md={{ span: 6, offset: 3 }}><TimerArea /></Col>
       </Row>
     </Container>
     <Footer />
