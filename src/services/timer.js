@@ -1,6 +1,7 @@
 export const PERIODS = {
   work: { id: 'work', mins: 25, secs: 0 },
   shortBrk: { id: 'short-brk', mins: 5, secs: 0 },
+  longBrk: { id: 'long-brk', mins: 15, secs: 0 },
 };
 
 export const INITIAL_PERIOD = PERIODS.work;
@@ -26,14 +27,17 @@ export const decrementOneSec = (mins, secs, timeDecrementedCallback, timeOverCal
 };
 
 /**
- * A function that determins the next period for the timer
+ * A function that determines the next period for the timer
  * @param {object} currentPeriod the current period object
+ * @param {number} counter the number of periods that have end so far
  * @return {object} next period
  */
-export const determineNextPeriod = (currentPeriod) => {
-  if (currentPeriod.id === 'work') {
+export const determineNextPeriod = (currentPeriod, counter) => {
+  if (currentPeriod.id === 'work' && counter < 7) {
     return PERIODS.shortBrk;
+  } if (currentPeriod.id === 'short-brk' && counter < 7) {
+    return PERIODS.work;
   }
 
-  return PERIODS.work;
+  return PERIODS.longBrk;
 };
