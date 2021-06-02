@@ -1,9 +1,8 @@
 import React from 'react';
+import Timer from '../Timer';
 
 const TimerArea = () => (
-  <div>
-    none
-  </div>
+  <Timer />
 );
 
 export default TimerArea;
