@@ -5,16 +5,14 @@ import SettingsForm from '../SettingsForm';
 
 function SettingsModal({ toggleShow, show }) {
   return (
-    <>
-      <Modal show={show} onHide={toggleShow}>
-        <Modal.Header closeButton>
-          <Modal.Title>Settings</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <SettingsForm />
-        </Modal.Body>
-      </Modal>
-    </>
+    <Modal show={show} onHide={toggleShow}>
+      <Modal.Header closeButton>
+        <Modal.Title>Settings</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <SettingsForm />
+      </Modal.Body>
+    </Modal>
   );
 }
 
@@ -24,8 +22,8 @@ SettingsModal.propTypes = {
 };
 
 SettingsModal.defaultProps = {
-  toggleShow: 'toggleShow',
-  show: 'show',
+  toggleShow: Function,
+  show: Boolean,
 };
 
 export default SettingsModal;
