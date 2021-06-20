@@ -17,13 +17,12 @@ function SettingsModal({ toggleShow, show }) {
 }
 
 SettingsModal.propTypes = {
-  toggleShow: PropTypes.func,
+  toggleShow: PropTypes.func.isRequired,
   show: PropTypes.bool,
 };
 
 SettingsModal.defaultProps = {
-  toggleShow: Function,
-  show: Boolean,
+  show: true,
 };
 
 export default SettingsModal;
