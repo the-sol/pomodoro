@@ -3,14 +3,16 @@ import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 import SettingsForm from '../SettingsForm';
 
-function SettingsModal({ toggleShow, show }) {
+function SettingsModal({
+  toggleShow, show, handelToggle,
+}) {
   return (
     <Modal show={show} onHide={toggleShow}>
       <Modal.Header closeButton>
         <Modal.Title>Settings</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <SettingsForm />
+        <SettingsForm handelToggle={handelToggle} />
       </Modal.Body>
     </Modal>
   );
@@ -18,6 +20,7 @@ function SettingsModal({ toggleShow, show }) {
 
 SettingsModal.propTypes = {
   toggleShow: PropTypes.func.isRequired,
+  handelToggle: PropTypes.func.isRequired,
   show: PropTypes.bool,
 };
 

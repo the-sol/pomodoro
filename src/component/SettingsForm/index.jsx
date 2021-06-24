@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
+import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import { PERIODS } from '../../services/timer';
 
-const SettingsForm = () => {
+const SettingsForm = ({ handelToggle }) => {
   const [periods, setPeriods] = useState(PERIODS);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     Object.assign(PERIODS, periods);
@@ -19,6 +20,7 @@ const SettingsForm = () => {
       },
     });
   };
+
   return (
     <Form onSubmit={handleSubmit}>
       {Object.keys(periods).map((period) => (
@@ -48,10 +50,29 @@ const SettingsForm = () => {
           </div>
         </div>
       ))}
-      <div className=" d-flex flex-row justify-content-center">
-        <Button variant="outline-dark" type="submit" className="w-25 mt-5">Save</Button>
+
+      <h5 className="mt-4 d-flex flex-row justify-content-center">Start Automaticaly Next period</h5>
+      <div className="mt-2 d-flex flex-row justify-content-center">
+        <BootstrapSwitchButton
+          onlabel="ON"
+          offlabel="OFF"
+          onstyle="outline-info"
+          offstyle="outline-dark"
+          width={100}
+          height={30}
+          checked={false}
+          onChange={handelToggle}
+        />
+      </div>
+      <div className="d-flex flex-row justify-content-end">
+        <Button variant="outline-dark" type="submit" className="w-23 mt-5">Save</Button>
       </div>
     </Form>
   );
 };
+
+SettingsForm.propTypes = {
+  handelToggle: PropTypes.func.isRequired,
+};
+
 export default SettingsForm;
