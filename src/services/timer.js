@@ -43,3 +43,32 @@ export const determineNextPeriod = (currentPeriod, counter) => {
 
   return PERIODS.work;
 };
+export const displyNotification = (nextPeriod, currentPeriod) => {
+  const notificatinFunc = (text, icon) => new Notification('Pomodoro', {
+    body: text,
+    icon,
+  });
+  const showNotification = () => {
+    let text = null;
+    const icon = 'https://source.unsplash.com/1600x900/?nature,water;';
+    if (currentPeriod.id === 'work' && nextPeriod.id === 'long-brk') {
+      text = `Great job! Take a long break. You have ${PERIODS.longBrk.mins} minutes.`;
+      notificatinFunc(text, icon);
+    } else if (currentPeriod.id === 'short-brk' || currentPeriod.id === 'long-brk') {
+      text = `Time to get back to work! Your next break starts in ${PERIODS.work.mins} minutes.`;
+      notificatinFunc(text, icon);
+    } else if (currentPeriod.id === 'work') {
+      text = `Nice work! Take a short break. You have ${PERIODS.shortBrk.mins} minutes.`;
+      notificatinFunc(text, icon);
+    }
+  };
+  if (Notification.permission === 'granted') {
+    showNotification();
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        showNotification();
+      }
+    });
+  }
+};
