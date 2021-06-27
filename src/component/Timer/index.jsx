@@ -10,7 +10,7 @@ import timeOverSound from './time-over-soundfx.wav';
 
 const timeOverSoundAudio = new Audio(timeOverSound);
 
-const Timer = ({ toggle }) => {
+const Timer = ({ startAuto }) => {
   const [[mins, secs], setTime] = useState([INITIAL_PERIOD.mins, INITIAL_PERIOD.secs]);
   const [isRunning, setIsRunning] = useState(false);
   const [currentPeriod, setCurrentPeriod] = useState(INITIAL_PERIOD);
@@ -30,7 +30,7 @@ const Timer = ({ toggle }) => {
       }
       setCurrentPeriod(nextPeriod);
       setTime([nextPeriod.mins, nextPeriod.secs]);
-      if (toggle === true) {
+      if (startAuto) {
         setIsRunning(true);
       }
     };
@@ -63,11 +63,11 @@ const Timer = ({ toggle }) => {
 };
 
 Timer.propTypes = {
-  toggle: PropTypes.bool,
+  startAuto: PropTypes.bool,
 };
 
 Timer.defaultProps = {
-  toggle: false,
+  startAuto: false,
 };
 
 export default Timer;

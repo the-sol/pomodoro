@@ -8,14 +8,14 @@ import Footer from './component/Footer';
 import Header from './component/Header';
 
 const App = () => {
-  const [toggle, setToggle] = useState(false);
-  const handelToggle = () => { setToggle(!toggle); };
+  const [startAuto, setStartAuto] = useState(false);
+  const handelStartAuto = () => { setStartAuto(!startAuto); };
   return (
     <div className="d-flex flex-column min-vh-100">
-      <Header handelToggle={handelToggle} />
+      <Header handelStartAuto={handelStartAuto} />
       <Container fluid className="my-auto">
         <Row className="mt-3">
-          <Col md={{ span: 6, offset: 3 }}><TimerArea toggle={toggle} /></Col>
+          <Col md={{ span: 6, offset: 3 }}><TimerArea startAuto={startAuto} /></Col>
         </Row>
       </Container>
       <Footer />

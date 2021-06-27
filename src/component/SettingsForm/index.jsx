@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import { PERIODS } from '../../services/timer';
 
-const SettingsForm = ({ handelToggle }) => {
+const SettingsForm = ({ handelStartAuto }) => {
   const [periods, setPeriods] = useState(PERIODS);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,7 +61,7 @@ const SettingsForm = ({ handelToggle }) => {
           width={100}
           height={30}
           checked={false}
-          onChange={handelToggle}
+          onChange={handelStartAuto}
         />
       </div>
       <div className="d-flex flex-row justify-content-end">
@@ -72,7 +72,7 @@ const SettingsForm = ({ handelToggle }) => {
 };
 
 SettingsForm.propTypes = {
-  handelToggle: PropTypes.func.isRequired,
+  handelStartAuto: PropTypes.func.isRequired,
 };
 
 export default SettingsForm;

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SettingsForm from '../SettingsForm';
 
 function SettingsModal({
-  toggleShow, show, handelToggle,
+  toggleShow, show, handelStartAuto,
 }) {
   return (
     <Modal show={show} onHide={toggleShow}>
@@ -12,7 +12,7 @@ function SettingsModal({
         <Modal.Title>Settings</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <SettingsForm handelToggle={handelToggle} />
+        <SettingsForm handelStartAuto={handelStartAuto} />
       </Modal.Body>
     </Modal>
   );
@@ -20,7 +20,7 @@ function SettingsModal({
 
 SettingsModal.propTypes = {
   toggleShow: PropTypes.func.isRequired,
-  handelToggle: PropTypes.func.isRequired,
+  handelStartAuto: PropTypes.func.isRequired,
   show: PropTypes.bool,
 };
 

@@ -8,7 +8,7 @@ import SettingsModal from '../SettingsModal';
 import styles from './Header.module.css';
 import pomoLogo from '../../Logo/PomoLogo.png';
 
-function Header({ handelToggle }) {
+function Header({ handelStartAuto }) {
   const [show, setShow] = useState(false);
   const toggleShow = () => setShow(!show);
 
@@ -30,7 +30,7 @@ function Header({ handelToggle }) {
           <SettingsModal
             toggleShow={toggleShow}
             show={show}
-            handelToggle={handelToggle}
+            handelToggle={handelStartAuto}
           />
         </Nav>
       </Navbar.Collapse>
@@ -39,7 +39,7 @@ function Header({ handelToggle }) {
 }
 
 Header.propTypes = {
-  handelToggle: PropTypes.func.isRequired,
+  handelStartAuto: PropTypes.func.isRequired,
 };
 
 export default Header;
