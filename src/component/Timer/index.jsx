@@ -4,7 +4,7 @@ import {
   decrementOneSec,
   determineNextPeriod,
   INITIAL_PERIOD,
-  displyNotification,
+  displayNotification,
 } from '../../services/timer';
 import timeOverSound from './time-over-soundfx.wav';
 
@@ -25,12 +25,12 @@ const Timer = () => {
       setIsRunning(false);
       counter.current += 1;
       const nextPeriod = determineNextPeriod(currentPeriod, counter.current);
-      if (counter.current === 7) {
-        counter.current = -1;// the counter need to be -1 instead of 0 becuase there is a bug
+      if (counter.current === 8) {
+        counter.current = 0;
       }
       setCurrentPeriod(nextPeriod);
       setTime([nextPeriod.mins, nextPeriod.secs]);
-      displyNotification(nextPeriod, currentPeriod);
+      displayNotification(nextPeriod);
     };
 
     const tick = () => decrementOneSec(mins, secs, setTime, reset);
