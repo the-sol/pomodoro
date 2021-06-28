@@ -3,19 +3,16 @@ import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import Timer from '../Timer';
 
-const TimerArea = ({ startAuto }) => (
+const TimerArea = ({ shouldAutoStart }) => (
   <Card>
     <Card.Body className="text-center">
-      <Timer toggle={startAuto} />
+      <Timer shouldAutoStart={shouldAutoStart} />
     </Card.Body>
   </Card>
 );
 
 TimerArea.propTypes = {
-  startAuto: PropTypes.bool,
+  shouldAutoStart: PropTypes.bool.isRequired,
 };
 
-TimerArea.defaultProps = {
-  startAuto: false,
-};
 export default TimerArea;

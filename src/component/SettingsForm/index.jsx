@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import { PERIODS } from '../../services/timer';
 
-const SettingsForm = ({ handelStartAuto }) => {
+const SettingsForm = ({ onShouldAutoStartChange, shouldAutoStart }) => {
   const [periods, setPeriods] = useState(PERIODS);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,7 +51,7 @@ const SettingsForm = ({ handelStartAuto }) => {
         </div>
       ))}
 
-      <h5 className="mt-4 d-flex flex-row justify-content-center">Start Automaticaly Next period</h5>
+      <h5 className="mt-4 d-flex flex-row justify-content-center">Start Automatically Next period</h5>
       <div className="mt-2 d-flex flex-row justify-content-center">
         <BootstrapSwitchButton
           onlabel="ON"
@@ -60,8 +60,8 @@ const SettingsForm = ({ handelStartAuto }) => {
           offstyle="outline-dark"
           width={100}
           height={30}
-          checked={false}
-          onChange={handelStartAuto}
+          checked={shouldAutoStart}
+          onChange={onShouldAutoStartChange}
         />
       </div>
       <div className="d-flex flex-row justify-content-end">
@@ -72,7 +72,8 @@ const SettingsForm = ({ handelStartAuto }) => {
 };
 
 SettingsForm.propTypes = {
-  handelStartAuto: PropTypes.func.isRequired,
+  onShouldAutoStartChange: PropTypes.func.isRequired,
+  shouldAutoStart: PropTypes.bool.isRequired,
 };
 
 export default SettingsForm;
