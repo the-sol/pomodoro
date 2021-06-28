@@ -43,29 +43,29 @@ export const determineNextPeriod = (currentPeriod, counter) => {
 
   return PERIODS.work;
 };
-const notificatinFunc = (text, icon) => new Notification('Pomodoro', {
+const createNotification = (text, icon) => new Notification('Pomodoro', {
   body: text,
   icon,
 });
+const showNotification = (nextPeriod) => {
+  let text = null;
+  const icon = 'https://source.unsplash.com/1600x900/?nature,water;';
+  if (nextPeriod.id === 'long-brk') {
+    text = `Great job! Take a long break. You have ${PERIODS.longBrk.mins} minutes.`;
+  } else if (nextPeriod.id === 'work') {
+    text = `Time to get back to work! Your next break starts in ${PERIODS.work.mins} minutes.`;
+  } else if (nextPeriod.id === 'short-brk') {
+    text = `Nice work! Take a short break. You have ${PERIODS.shortBrk.mins} minutes.`;
+  }
+  createNotification(text, icon);
+};
 export const displayNotification = (nextPeriod) => {
-  const showNotification = () => {
-    let text = null;
-    const icon = 'https://source.unsplash.com/1600x900/?nature,water;';
-    if (nextPeriod.id === 'long-brk') {
-      text = `Great job! Take a long break. You have ${PERIODS.longBrk.mins} minutes.`;
-    } else if (nextPeriod.id === 'work') {
-      text = `Time to get back to work! Your next break starts in ${PERIODS.work.mins} minutes.`;
-    } else if (nextPeriod.id === 'short-brk') {
-      text = `Nice work! Take a short break. You have ${PERIODS.shortBrk.mins} minutes.`;
-    }
-    notificatinFunc(text, icon);
-  };
   if (Notification.permission === 'granted') {
-    showNotification();
+    showNotification(nextPeriod);
   } else if (Notification.permission !== 'denied') {
     Notification.requestPermission().then((permission) => {
       if (permission === 'granted') {
-        showNotification();
+        showNotification(nextPeriod);
       }
     });
   }
