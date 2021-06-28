@@ -26,14 +26,11 @@ const Timer = () => {
       sharedStartTime.current = doc.data().startTime;
       stopTimeFromDp.current = doc.data().stopTime;
       const dbPeriodTime = doc.data().periodTime;
-      const receivedIsRunning = doc.data().boolean;
+      const receivedIsRunning = sharedStartTime.current && !stopTimeFromDp.current;
       setIsRunning(receivedIsRunning);
       setCurrentPeriod(dbPeriodTime);
-      if (dbPeriodTime && !stopTimeFromDp.current) {
+      if (currentPeriod && currentPeriod?.id !== dbPeriodTime?.id) {
         setTime([dbPeriodTime.mins, dbPeriodTime.secs]);
-      }
-      if (sharedStartTime.current && !stopTimeFromDp.current) {
-        setIsRunning(true);
       }
     };
     firebase.firestore()
@@ -41,6 +38,7 @@ const Timer = () => {
       .doc('time')
       .onSnapshot(subFunc);
   }, []);
+
   useEffect(() => {
     if (!isRunning) {
       return;
@@ -88,9 +86,12 @@ const Timer = () => {
   const handleStartClick = () => {
     setIsRunning(true);
     const clockTime = new Date().getTime();
+    const sub = stopTimeFromDp.current ? stopTimeFromDp.current - sharedStartTime.current : 0;
+    sharedStartTime.current = clockTime - sub;
+    stopTimeFromDp.current = null;
     firebase.firestore().collection('timer').doc('time').update({
-      startTime: clockTime,
-      boolean: true,
+      startTime: sharedStartTime.current,
+      stopTime: stopTimeFromDp.current,
     });
   };
 
@@ -100,7 +101,6 @@ const Timer = () => {
     const stopTimeForDp = new Date().getTime();
     firebase.firestore().collection('timer').doc('time').update({
       stopTime: stopTimeForDp,
-      boolean: false,
     });
   };
   if (!sharedStartTime.current && !currentPeriod) {
