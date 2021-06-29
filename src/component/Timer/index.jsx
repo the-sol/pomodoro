@@ -50,13 +50,13 @@ const Timer = () => {
   return (
     <>
       <h1>
+        <h3>{periodText}</h3>
         {`${mins.toString().padStart(2, '0')}:
         ${secs.toString().padStart(2, '0')}`}
         {' '}
       </h1>
       <div className="d-flex justify-content-around">
         <Button variant="dark" size="lg" type="button" onClick={handleStartClick}>Start &#128525;</Button>
-        <h3>{periodText}</h3>
         <Button variant="info" size="lg" type="button" onClick={handleStopClick}>Stop &#128564;</Button>
       </div>
     </>
