@@ -4,7 +4,7 @@ import {
   decrementOneSec,
   determineNextPeriod,
   INITIAL_PERIOD,
-  displayNotification,
+  checkPermissionAndShowNotification,
 } from '../../services/timer';
 import timeOverSound from './time-over-soundfx.wav';
 
@@ -30,7 +30,7 @@ const Timer = () => {
       }
       setCurrentPeriod(nextPeriod);
       setTime([nextPeriod.mins, nextPeriod.secs]);
-      displayNotification(nextPeriod);
+      checkPermissionAndShowNotification(nextPeriod);
     };
 
     const tick = () => decrementOneSec(mins, secs, setTime, reset);
