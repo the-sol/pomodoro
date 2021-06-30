@@ -7,9 +7,8 @@ export const PERIODS = {
 export const INITIAL_PERIOD = PERIODS.work;
 
 /**
- * A function that decreases the time by 1 second and calls
- * either the timeDecrementedCallback if the time is not over,
- * or calls timeOverCallback if the time is over.
+ * Decreases the time by 1 second and calls either the timeDecrementedCallback
+ * if the time is not over, or calls timeOverCallback if the time is over.
  * @param {number} mins number of minutes
  * @param {number} secs number of seconds
  * @param {function} timeDecrementedCallback function to call when time is
@@ -27,7 +26,7 @@ export const decrementOneSec = (mins, secs, timeDecrementedCallback, timeOverCal
 };
 
 /**
- * A function that determines the next period for the timer
+ * Determines the next period for the timer
  * @param {object} currentPeriod the current period object
  * @param {number} counter the number of periods that have end so far
  * @return {object} next period
@@ -43,11 +42,25 @@ export const determineNextPeriod = (currentPeriod, counter) => {
 
   return PERIODS.work;
 };
+
+/**
+ * Creates a notification object, which as a result immediately shows a
+ * notification on the screen for the user. Before calling this, make sure to
+ * check that the user has granted permission for showing notifications, since
+ * this function assumes the user has already granted access.
+ * @param {string} text the text to show inside the notification
+ * @string {icon} the URL of an image to show inside the notification
+ * @return {object} Notification object
+ */
 const createNotification = (text, icon) => new Notification('Pomodoro', {
   body: text,
   icon,
 });
 
+/**
+ * Shows a notification and picks the text for it based on the period.
+ * @period {object} Period object of the next period that is about to start
+ */
 const showNotificationForPeriod = (period) => {
   let text = null;
   const icon = 'https://source.unsplash.com/1600x900/?nature,water;';
@@ -61,6 +74,11 @@ const showNotificationForPeriod = (period) => {
   createNotification(text, icon);
 };
 
+/**
+ * Shows a notification after ensuring the user has granted permission for
+ * showing notifications.
+ * @period {object} Period object of the next period that is about to start
+ */
 export const checkPermissionAndShowNotification = (period) => {
   if (Notification.permission === 'granted') {
     showNotificationForPeriod(period);
