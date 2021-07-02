@@ -1,7 +1,7 @@
 export const PERIODS = {
-  work: { id: 'work', mins: 0, secs: 5 },
-  shortBrk: { id: 'short-brk', mins: 0, secs: 2 },
-  longBrk: { id: 'long-brk', mins: 0, secs: 3 },
+  work: { id: 'work', mins: 25, secs: 0 },
+  shortBrk: { id: 'short-brk', mins: 5, secs: 0 },
+  longBrk: { id: 'long-brk', mins: 15, secs: 0 },
 };
 
 export const INITIAL_PERIOD = PERIODS.work;
@@ -33,7 +33,7 @@ export const decrementOneSec = (mins, secs, timeDecrementedCallback, timeOverCal
  * @return {object} next period
  */
 export const determineNextPeriod = (currentPeriod, counter) => {
-  if (counter === 6) {
+  if (counter === 7) {
     return PERIODS.longBrk;
   }
 

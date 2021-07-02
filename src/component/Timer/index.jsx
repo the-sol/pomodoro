@@ -14,55 +14,52 @@ const Timer = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [currentPeriod, setCurrentPeriod] = useState(INITIAL_PERIOD);
   const tickTimeoutId = useRef(0);
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(1);
+
+  const timeOver = () => {
+    timeOverSoundAudio.play();
+    setIsRunning(false);
+    setCounter(counter + 1);
+    const nextPeriod = determineNextPeriod(currentPeriod, counter);
+    setCurrentPeriod(nextPeriod);
+    setTime([nextPeriod.mins, nextPeriod.secs]);
+    if (counter === 7) {
+      setCounter(0);
+    }
+  };
+
   useEffect(() => {
     if (!isRunning) {
       return;
     }
-
     const reset = () => {
-      timeOverSoundAudio.play();
-      setIsRunning(false);
-      setCounter(counter + 1);
-      const nextPeriod = determineNextPeriod(currentPeriod, counter);
-      if (counter === 6) {
-        setCounter(-1);
-      }
-      setCurrentPeriod(nextPeriod);
-      setTime([nextPeriod.mins, nextPeriod.secs]);
+      timeOver();
     };
     const tick = () => decrementOneSec(mins, secs, setTime, reset);
     tickTimeoutId.current = setTimeout(tick, 1000);
   });
+  const stopTime = () => {
+    setIsRunning(false);
+    clearTimeout(tickTimeoutId.current);
+  };
 
   const handleStartClick = () => {
     setIsRunning(true);
   };
 
   const handleStopClick = () => {
-    setIsRunning(false);
-    clearTimeout(tickTimeoutId.current);
+    stopTime();
   };
 
   const handleResetClick = () => {
-    setIsRunning(false);
-    clearTimeout(tickTimeoutId.current);
+    stopTime();
     setTime([currentPeriod.mins, currentPeriod.secs]);
   };
 
   const handleNextClick = () => {
-    const nextPeriod = determineNextPeriod(currentPeriod, counter);
+    timeOver();
     clearTimeout(tickTimeoutId.current);
-    setTime([nextPeriod.mins, nextPeriod.secs]);
-    setCurrentPeriod(nextPeriod);
-    setIsRunning(false);
-    setCounter(counter + 1);
-    timeOverSoundAudio.play();
-    if (counter === 6) {
-      setCounter(-1);
-    }
   };
-
   return (
     <>
       <h1>
