@@ -20,9 +20,7 @@ const Timer = ({
     tickTimeoutId.current = setTimeout(tick, 1000);
   });
 
-  useEffect(() => {
-    setTime(startTime);
-  }, [startTime]);
+  useEffect(() => setTime(startTime), [startTime]);
 
   if (!isRunning && tickTimeoutId.current) {
     clearTimeout(tickTimeoutId.current);

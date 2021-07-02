@@ -41,36 +41,36 @@ const updateFirebaseTime = (newValues) => {
 
 const TimerArea = () => {
   const [state, setState] = useState({
+    periodCounter: 0,
     currentPeriod: null,
-    sharedStartTime: null,
-    stopTimeFromDp: null,
-    pomoClockTime: null,
+    startTime: null,
+    stopTime: null,
+    timeToShow: null,
     isRunning: false,
-    counter: 0,
     isLoading: true,
   });
 
   useEffect(() => {
     const subFunc = (doc) => {
       const {
-        counter = 0,
+        periodCounter = 0,
         startTime = 0,
         stopTime = 0,
         periodTime,
       } = doc.data();
 
       const isRunning = !!startTime && !stopTime;
-      const pomoClockTime = calcPomoClockTime(startTime, stopTime, periodTime);
+      const timeToShow = calcPomoClockTime(startTime, stopTime, periodTime);
 
       setState({
         ...state,
-        counter,
+        periodCounter,
         currentPeriod: periodTime,
-        sharedStartTime: startTime,
-        stopTimeFromDp: stopTime,
+        startTime,
+        stopTime,
         isRunning,
         isLoading: false,
-        pomoClockTime,
+        timeToShow,
       });
     };
 
@@ -82,21 +82,21 @@ const TimerArea = () => {
 
   const handleTimeOver = () => {
     timeOverSoundAudio.play();
-    const newCounter = state.counter + 1;
+    const newCounter = state.periodCounter + 1;
     const nextPeriod = determineNextPeriod(state.currentPeriod, newCounter);
 
     updateFirebaseTime({
       startTime: null,
       stopTime: null,
       periodTime: nextPeriod,
-      counter: newCounter === 8 ? 0 : newCounter,
+      periodCounter: newCounter === 8 ? 0 : newCounter,
     });
   };
 
   const handleStartClick = () => {
     const [newStartTime, newStopTime] = calcNewStartStopTimes(
-      state.sharedStartTime,
-      state.stopTimeFromDp,
+      state.startTime,
+      state.stopTime,
     );
     updateFirebaseTime({
       startTime: newStartTime,
@@ -125,7 +125,7 @@ const TimerArea = () => {
           : (
             <>
               <Timer
-                startTime={state.pomoClockTime}
+                startTime={state.timeToShow}
                 isRunning={state.isRunning}
                 onTimeOver={handleTimeOver}
               />
