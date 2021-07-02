@@ -17,6 +17,7 @@ export const INITIAL_PERIOD = PERIODS.work;
  * @param {function} timeOverCallback function to call when time is over
  */
 export const decrementOneSec = (mins, secs, timeDecrementedCallback, timeOverCallback) => {
+  console.log('mins', mins, 'secs', secs);
   if (mins === 0 && secs === 0) {
     timeOverCallback();
   } else if (secs === 0) {
@@ -54,14 +55,10 @@ export const determineNextPeriod = (currentPeriod, counter) => {
 export const calculateTimeDifference = (time1, time2) => Math.abs(time2 - time1);
 
 export const calculatePeriodDifference = (time1, time2) => {
-  const deferenceBetweenPeriod = (time2.mins * 60 * 1000) - time1;
+  const deferenceBetweenPeriod = (time2.mins * 60 * 1000 + time2.secs * 1000) - time1;
   const minutes = ((deferenceBetweenPeriod / 1000) / 60);
   const seconds = ((deferenceBetweenPeriod / 1000)) % 60;
-  const timeToShow = {
-    mins: Math.trunc(minutes),
-    secs: seconds.toFixed(0),
-  };
-  return timeToShow;
+  return [Math.trunc(minutes), seconds.toFixed(0)];
 };
 
 export const deferenceBetweenStartAndStopTime = (time1, time2) => Math.abs(time2 - time1);
