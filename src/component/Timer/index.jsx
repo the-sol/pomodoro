@@ -20,6 +20,15 @@ const Timer = ({
     tickTimeoutId.current = setTimeout(tick, 1000);
   });
 
+  useEffect(() => {
+    clearTimeout(tickTimeoutId.current);
+    setTime(startTime);
+  }, [startTime]);
+
+  if (!isRunning && tickTimeoutId.current) {
+    clearTimeout(tickTimeoutId.current);
+  }
+
   return (
     <h1>
       {`${mins.toString().padStart(2, '0')}:

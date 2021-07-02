@@ -58,7 +58,7 @@ export const calculatePeriodDifference = (time1, time2) => {
   const deferenceBetweenPeriod = (time2.mins * 60 * 1000 + time2.secs * 1000) - time1;
   const minutes = ((deferenceBetweenPeriod / 1000) / 60);
   const seconds = ((deferenceBetweenPeriod / 1000)) % 60;
-  return [Math.trunc(minutes), seconds.toFixed(0)];
+  return [Math.trunc(minutes), Math.round(seconds)];
 };
 
 export const deferenceBetweenStartAndStopTime = (time1, time2) => Math.abs(time2 - time1);
