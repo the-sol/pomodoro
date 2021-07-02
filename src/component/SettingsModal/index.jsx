@@ -1,7 +1,6 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
-import { propTypes } from 'react-bootstrap/esm/Image';
 import SettingsForm from '../SettingsForm';
 
 function SettingsModal({
@@ -25,14 +24,12 @@ function SettingsModal({
 SettingsModal.propTypes = {
   toggleShow: PropTypes.func.isRequired,
   onShouldAutoStartChange: PropTypes.func.isRequired,
-  shouldAutoStart: propTypes.bool,
+  shouldAutoStart: PropTypes.bool.isRequired,
   show: PropTypes.bool,
 };
 
 SettingsModal.defaultProps = {
   show: true,
-  shouldAutoStart: false,
-
 };
 
 export default SettingsModal;
