@@ -13,7 +13,6 @@ const Timer = () => {
   const [[mins, secs], setTime] = useState([INITIAL_PERIOD.mins, INITIAL_PERIOD.secs]);
   const [isRunning, setIsRunning] = useState(false);
   const [currentPeriod, setCurrentPeriod] = useState(INITIAL_PERIOD);
-  const [periodText, setPeriodText] = useState(INITIAL_PERIOD.id);
   const tickTimeoutId = useRef(0);
   const counter = useRef(0);
   useEffect(() => {
@@ -30,7 +29,6 @@ const Timer = () => {
         counter.current = 0;
       }
       setCurrentPeriod(nextPeriod);
-      setPeriodText(nextPeriod.id);
       setTime([nextPeriod.mins, nextPeriod.secs]);
     };
 
@@ -50,7 +48,7 @@ const Timer = () => {
   return (
     <>
       <h1>
-        <h3>{periodText}</h3>
+        <h3>{currentPeriod.id}</h3>
         {`${mins.toString().padStart(2, '0')}:
         ${secs.toString().padStart(2, '0')}`}
         {' '}
