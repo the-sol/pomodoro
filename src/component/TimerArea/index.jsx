@@ -35,11 +35,8 @@ const calcNewStartStopTimes = (startTime, stopTime) => {
   return [newStartTime, newStopTime];
 };
 
-const updateTimeInDB = (startTime, stopTime) => {
-  firebase.firestore().collection('timer').doc('time').update({
-    startTime,
-    stopTime,
-  });
+const updateFirebaseTime = (newValues) => {
+  firebase.firestore().collection('timer').doc('time').update(newValues);
 };
 
 const TimerArea = () => {
@@ -55,13 +52,19 @@ const TimerArea = () => {
 
   useEffect(() => {
     const subFunc = (doc) => {
-      const { startTime = 0, stopTime = 0, periodTime } = doc.data();
+      const {
+        counter = 0,
+        startTime = 0,
+        stopTime = 0,
+        periodTime,
+      } = doc.data();
 
       const isRunning = !!startTime && !stopTime;
       const pomoClockTime = calcPomoClockTime(startTime, stopTime, periodTime);
 
       setState({
         ...state,
+        counter,
         currentPeriod: periodTime,
         sharedStartTime: startTime,
         stopTimeFromDp: stopTime,
@@ -82,12 +85,11 @@ const TimerArea = () => {
     const newCounter = state.counter + 1;
     const nextPeriod = determineNextPeriod(state.currentPeriod, newCounter);
 
-    setState({
-      ...state,
-      isRunning: false,
+    updateFirebaseTime({
+      startTime: null,
+      stopTime: null,
+      periodTime: nextPeriod,
       counter: newCounter === 8 ? 0 : newCounter,
-      currentPeriod: nextPeriod,
-      pomoClockTime: [nextPeriod.mins, nextPeriod.secs],
     });
   };
 
@@ -96,17 +98,20 @@ const TimerArea = () => {
       state.sharedStartTime,
       state.stopTimeFromDp,
     );
-    updateTimeInDB(newStartTime, newStopTime);
+    updateFirebaseTime({
+      startTime: newStartTime,
+      stopTime: newStopTime,
+    });
   };
 
   const handleStopClick = () => {
-    firebase.firestore().collection('timer').doc('time').update({
+    updateFirebaseTime({
       stopTime: new Date().getTime(),
     });
   };
 
   const handleResetClick = () => {
-    firebase.firestore().collection('timer').doc('time').update({
+    updateFirebaseTime({
       startTime: null,
       stopTime: null,
     });
@@ -125,9 +130,31 @@ const TimerArea = () => {
                 onTimeOver={handleTimeOver}
               />
               <div className="d-flex justify-content-around">
-                <Button variant="dark" size="lg" type="button" onClick={handleStartClick}>Start &#128525;</Button>
-                <Button variant="info" size="lg" type="button" onClick={handleStopClick}>Stop &#128564;</Button>
-                <Button variant="danger" size="lg" type="button" onClick={handleResetClick}>Reset &#128564;</Button>
+                <Button
+                  variant="dark"
+                  size="lg"
+                  type="button"
+                  onClick={handleStartClick}
+                >
+                  Start &#128525;
+                </Button>
+                <Button
+                  variant="info"
+                  size="lg"
+                  type="button"
+                  onClick={handleStopClick}
+                >
+                  Stop &#128564;
+                </Button>
+                <Button
+                  variant="danger"
+                  size="lg"
+                  type="button"
+                  onClick={handleResetClick}
+                  disabled={state.isRunning}
+                >
+                  Reset
+                </Button>
               </div>
             </>
           )}

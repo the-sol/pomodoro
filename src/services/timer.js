@@ -17,7 +17,6 @@ export const INITIAL_PERIOD = PERIODS.work;
  * @param {function} timeOverCallback function to call when time is over
  */
 export const decrementOneSec = (mins, secs, timeDecrementedCallback, timeOverCallback) => {
-  console.log('mins', mins, 'secs', secs);
   if (mins === 0 && secs === 0) {
     timeOverCallback();
   } else if (secs === 0) {
@@ -34,8 +33,6 @@ export const decrementOneSec = (mins, secs, timeDecrementedCallback, timeOverCal
  * @return {object} next period
  */
 export const determineNextPeriod = (currentPeriod, counter) => {
-  // eslint-disable-next-line no-console
-  console.log(currentPeriod);
   if (counter === 7) {
     return PERIODS.longBrk;
   }

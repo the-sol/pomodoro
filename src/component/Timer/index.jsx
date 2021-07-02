@@ -21,7 +21,6 @@ const Timer = ({
   });
 
   useEffect(() => {
-    clearTimeout(tickTimeoutId.current);
     setTime(startTime);
   }, [startTime]);
 
