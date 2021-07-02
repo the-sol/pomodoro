@@ -29,7 +29,11 @@ const Timer = () => {
       const receivedIsRunning = sharedStartTime.current && !stopTimeFromDp.current;
       setIsRunning(receivedIsRunning);
       setCurrentPeriod(dbPeriodTime);
-      if (currentPeriod && currentPeriod?.id !== dbPeriodTime?.id) {
+      console.log('receivedIsRunning', receivedIsRunning);
+      console.log('dbPeriodTime', dbPeriodTime);
+      console.log('stopTimeFromDp', stopTimeFromDp.current);
+      console.log('stopTimeFromDp', sharedStartTime.current);
+      if (!receivedIsRunning) {
         setTime([dbPeriodTime.mins, dbPeriodTime.secs]);
       }
     };
@@ -47,11 +51,15 @@ const Timer = () => {
       timeOverSoundAudio.play();
       setIsRunning(false);
       counter.current += 1;
+      console.log('currentPeriod', currentPeriod);
       const nextPeriod = determineNextPeriod(currentPeriod, counter.current);
       if (counter.current === 8) {
         counter.current = 0;
       }
+      firebase.firestore().collection('timer').doc('time').update({ startTime: firebase.firestore.FieldValue.delete() });
       setCurrentPeriod(nextPeriod);
+      console.log('nextPeriod', nextPeriod);
+      console.log('currentPeriod', currentPeriod);
       setTime([nextPeriod.mins, nextPeriod.secs]);
       sharedStartTime.current = null;
     };
@@ -82,7 +90,7 @@ const Timer = () => {
       );
       setTime([timeToShow.mins, timeToShow.secs]);
     }
-  }, [sharedStartTime.current]);
+  }, [sharedStartTime.current, stopTimeFromDp]);
   const handleStartClick = () => {
     setIsRunning(true);
     const clockTime = new Date().getTime();
