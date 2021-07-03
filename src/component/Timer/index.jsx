@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
 import {
   decrementOneSec,
   determineNextPeriod,
@@ -10,7 +11,7 @@ import timeOverSound from './time-over-soundfx.wav';
 
 const timeOverSoundAudio = new Audio(timeOverSound);
 
-const Timer = () => {
+const Timer = ({ shouldAutoStart }) => {
   const [[mins, secs], setTime] = useState([INITIAL_PERIOD.mins, INITIAL_PERIOD.secs]);
   const [isRunning, setIsRunning] = useState(false);
   const [currentPeriod, setCurrentPeriod] = useState(INITIAL_PERIOD);
@@ -30,9 +31,10 @@ const Timer = () => {
       }
       setCurrentPeriod(nextPeriod);
       setTime([nextPeriod.mins, nextPeriod.secs]);
-      checkPermissionAndShowNotification(nextPeriod);
+      if (shouldAutoStart) {
+        setIsRunning(true);
+      }
     };
-
     const tick = () => decrementOneSec(mins, secs, setTime, reset);
     tickTimeoutId.current = setTimeout(tick, 1000);
   });
@@ -60,6 +62,10 @@ const Timer = () => {
       </div>
     </>
   );
+};
+
+Timer.propTypes = {
+  shouldAutoStart: PropTypes.bool.isRequired,
 };
 
 export default Timer;
