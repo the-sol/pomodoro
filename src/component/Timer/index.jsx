@@ -5,6 +5,7 @@ import {
   decrementOneSec,
   determineNextPeriod,
   INITIAL_PERIOD,
+  checkPermissionAndShowNotification,
 } from '../../services/timer';
 import timeOverSound from './time-over-soundfx.wav';
 
@@ -25,7 +26,7 @@ const Timer = ({ shouldAutoStart }) => {
       setIsRunning(false);
       counter.current += 1;
       const nextPeriod = determineNextPeriod(currentPeriod, counter.current);
-      if (counter.current === 7) {
+      if (counter.current === 8) {
         counter.current = 0;
       }
       setCurrentPeriod(nextPeriod);
@@ -50,6 +51,7 @@ const Timer = ({ shouldAutoStart }) => {
   return (
     <>
       <h1>
+        <h3>{currentPeriod.id}</h3>
         {`${mins.toString().padStart(2, '0')}:
         ${secs.toString().padStart(2, '0')}`}
         {' '}
