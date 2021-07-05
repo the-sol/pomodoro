@@ -16,7 +16,7 @@ const Timer = () => {
   const tickTimeoutId = useRef(0);
   const [counter, setCounter] = useState(1);
 
-  const timeOver = () => {
+  const endCurrentAndStartNextPeriod = () => {
     timeOverSoundAudio.play();
     setIsRunning(false);
     setCounter(counter + 1);
@@ -32,10 +32,7 @@ const Timer = () => {
     if (!isRunning) {
       return;
     }
-    const reset = () => {
-      timeOver();
-    };
-    const tick = () => decrementOneSec(mins, secs, setTime, reset);
+    const tick = () => decrementOneSec(mins, secs, setTime, endCurrentAndStartNextPeriod);
     tickTimeoutId.current = setTimeout(tick, 1000);
   });
   const stopTime = () => {
@@ -57,7 +54,7 @@ const Timer = () => {
   };
 
   const handleNextClick = () => {
-    timeOver();
+    endCurrentAndStartNextPeriod();
     clearTimeout(tickTimeoutId.current);
   };
   return (
