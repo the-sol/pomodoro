@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -8,7 +9,11 @@ import SettingsModal from '../SettingsModal';
 import styles from './Header.module.css';
 import pomoLogo from '../../Logo/PomoLogo.png';
 
-function Header({ onShouldAutoStartChange, shouldAutoStart }) {
+function Header({
+  onShouldAutoStartChange,
+  shouldAutoStart,
+  dataOfPeriods,
+}) {
   const [show, setShow] = useState(false);
   const toggleShow = () => setShow(!show);
 
@@ -32,6 +37,7 @@ function Header({ onShouldAutoStartChange, shouldAutoStart }) {
             show={show}
             onShouldAutoStartChange={onShouldAutoStartChange}
             shouldAutoStart={shouldAutoStart}
+            dataOfPeriods={dataOfPeriods}
           />
         </Nav>
       </Navbar.Collapse>
@@ -42,6 +48,13 @@ function Header({ onShouldAutoStartChange, shouldAutoStart }) {
 Header.propTypes = {
   onShouldAutoStartChange: PropTypes.func.isRequired,
   shouldAutoStart: PropTypes.bool.isRequired,
+  dataOfPeriods: PropTypes.objectOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      mins: PropTypes.number.isRequired,
+      secs: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
 };
 
 export default Header;

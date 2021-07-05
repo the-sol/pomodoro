@@ -1,11 +1,11 @@
+/* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
-import { propTypes } from 'react-bootstrap/esm/Image';
 import SettingsForm from '../SettingsForm';
 
 function SettingsModal({
-  toggleShow, show, onShouldAutoStartChange, shouldAutoStart,
+  toggleShow, show, onShouldAutoStartChange, shouldAutoStart, dataOfPeriods,
 }) {
   return (
     <Modal show={show} onHide={toggleShow}>
@@ -16,6 +16,7 @@ function SettingsModal({
         <SettingsForm
           onShouldAutoStartChange={onShouldAutoStartChange}
           shouldAutoStart={shouldAutoStart}
+          dataOfPeriods={dataOfPeriods}
         />
       </Modal.Body>
     </Modal>
@@ -25,14 +26,19 @@ function SettingsModal({
 SettingsModal.propTypes = {
   toggleShow: PropTypes.func.isRequired,
   onShouldAutoStartChange: PropTypes.func.isRequired,
-  shouldAutoStart: propTypes.bool,
+  shouldAutoStart: PropTypes.bool.isRequired,
   show: PropTypes.bool,
+  dataOfPeriods: PropTypes.objectOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      mins: PropTypes.number.isRequired,
+      secs: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
 };
 
 SettingsModal.defaultProps = {
   show: true,
-  shouldAutoStart: false,
-
 };
 
 export default SettingsModal;

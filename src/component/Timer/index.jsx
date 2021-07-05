@@ -4,16 +4,15 @@ import PropTypes from 'prop-types';
 import {
   decrementOneSec,
   determineNextPeriod,
-  INITIAL_PERIOD,
 } from '../../services/timer';
 import timeOverSound from './time-over-soundfx.wav';
 
 const timeOverSoundAudio = new Audio(timeOverSound);
 
-const Timer = ({ shouldAutoStart }) => {
-  const [[mins, secs], setTime] = useState([INITIAL_PERIOD.mins, INITIAL_PERIOD.secs]);
+const Timer = ({ shouldAutoStart, dataOfPeriods }) => {
+  const [[mins, secs], setTime] = useState([dataOfPeriods.work.mins, dataOfPeriods.work.secs]);
   const [isRunning, setIsRunning] = useState(false);
-  const [currentPeriod, setCurrentPeriod] = useState(INITIAL_PERIOD);
+  const [currentPeriod, setCurrentPeriod] = useState(dataOfPeriods.work);
   const tickTimeoutId = useRef(0);
   const counter = useRef(0);
   useEffect(() => {
@@ -64,6 +63,13 @@ const Timer = ({ shouldAutoStart }) => {
 
 Timer.propTypes = {
   shouldAutoStart: PropTypes.bool.isRequired,
+  dataOfPeriods: PropTypes.objectOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      mins: PropTypes.number.isRequired,
+      secs: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
 };
 
 export default Timer;

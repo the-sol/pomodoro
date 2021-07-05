@@ -1,15 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react';
-import { PERIODS } from '../../services/timer';
+import firebase from '../../firebase';
 
-const SettingsForm = ({ onShouldAutoStartChange, shouldAutoStart }) => {
-  const [periods, setPeriods] = useState(PERIODS);
+const SettingsForm = ({ onShouldAutoStartChange, shouldAutoStart, dataOfPeriods }) => {
+  const [periods, setPeriods] = useState(dataOfPeriods);
   const handleSubmit = (e) => {
     e.preventDefault();
-    Object.assign(PERIODS, periods);
+    Object.assign(dataOfPeriods, periods);
+    firebase.firestore().collection('SettingsData').doc('PeriodsData').update({
+      data: periods,
+    });
   };
   const changePeriod = (periodName, propertyKey, propertyValue) => {
     setPeriods({
@@ -20,7 +24,6 @@ const SettingsForm = ({ onShouldAutoStartChange, shouldAutoStart }) => {
       },
     });
   };
-
   return (
     <Form onSubmit={handleSubmit}>
       {Object.keys(periods).map((period) => (
@@ -74,6 +77,13 @@ const SettingsForm = ({ onShouldAutoStartChange, shouldAutoStart }) => {
 SettingsForm.propTypes = {
   onShouldAutoStartChange: PropTypes.func.isRequired,
   shouldAutoStart: PropTypes.bool.isRequired,
+  dataOfPeriods: PropTypes.objectOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      mins: PropTypes.number.isRequired,
+      secs: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
 };
 
 export default SettingsForm;

@@ -1,10 +1,9 @@
-export const PERIODS = {
-  work: { id: 'work', mins: 25, secs: 0 },
-  shortBrk: { id: 'short-brk', mins: 5, secs: 0 },
-  longBrk: { id: 'long-brk', mins: 15, secs: 0 },
-};
+// eslint-disable-next-line import/no-mutable-exports
+export let periods = {};
 
-export const INITIAL_PERIOD = PERIODS.work;
+export const initializePeriods = (periodsToRead) => {
+  periods = periodsToRead;
+};
 
 /**
  * A function that decreases the time by 1 second and calls
@@ -34,12 +33,12 @@ export const decrementOneSec = (mins, secs, timeDecrementedCallback, timeOverCal
  */
 export const determineNextPeriod = (currentPeriod, counter) => {
   if (counter === 7) {
-    return PERIODS.longBrk;
+    return periods.longBrk;
   }
 
   if (currentPeriod.id === 'work') {
-    return PERIODS.shortBrk;
+    return periods.shortBrk;
   }
 
-  return PERIODS.work;
+  return periods.work;
 };
