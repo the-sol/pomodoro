@@ -45,28 +45,58 @@ export const determineNextPeriod = (currentPeriod, counter) => {
 };
 
 /**
- * A function that takes two times and returns the difference between (time2 - time1)
- * @param {object} time1 the time that subtracts
- * @param {object} time2 the time to subtract from
+ * A function that takes two times and returns the difference between them (time2 - time1)
+ * @param {number} time1 the time that subtracts
+ * @param {number} time2 the time to subtract from
  */
-export const calculateTimeDifference = (time1, time2) => Math.abs(time2 - time1);
+const calculateTimeDifference = (time1, time2) => Math.abs(time2 - time1);
 
-export const calculatePeriodDifference = (time1, time2) => {
+/**
+* A function that take two parameter {time2} is object have time as minute and seconds
+the second parameter {time1} is the time that subtracts, this function convert the
+the object to millisecond and calculate the deference between the two times return new
+time as minutes and seconds in an array
+* @param {number} time1 the time that subtracts
+* @param {object} time2 the time to subtract from
+*/
+const calculatePeriodDifference = (time1, time2) => {
   const deferenceBetweenPeriod = (time2.mins * 60 * 1000 + time2.secs * 1000) - time1;
   const minutes = ((deferenceBetweenPeriod / 1000) / 60);
   const seconds = ((deferenceBetweenPeriod / 1000)) % 60;
   return [Math.trunc(minutes), Math.round(seconds)];
 };
 
-export const deferenceBetweenStartAndStopTime = (time1, time2) => Math.abs(time2 - time1);
+/**
+ * A function that take time as two parameters
+ * @param {number} startTime time in millisecond
+ * @param {number} stopTime  time in millisecond
+ * @returns {array} return two time in millisecond as an array
+ */
+export const calcNewStartStopTimes = (startTime, stopTime) => {
+  const clockTime = new Date().getTime();
+  const deferenceStartAndStopTime = stopTime ? stopTime - startTime : 0;
+  const newStartTime = clockTime - deferenceStartAndStopTime;
+  const newStopTime = null;
+  return [newStartTime, newStopTime];
+};
+/**
+ * A function that take three parameters to clculate the time that appear on the UI
+ * @param {number} startTime time in milliseconds
+ * @param {number} stopTime  time in milliseconds
+ * @param {object} currentPeriod object has time as minutes and seconds
+ * @returns {array} has the new times as minutes and seconds
+ */
+export const calcPomoClockTime = (startTime, stopTime, currentPeriod) => {
+  if (stopTime) {
+    const startAndStopTimeDeferenceMs = calculateTimeDifference(stopTime, startTime);
+    return calculatePeriodDifference(startAndStopTimeDeferenceMs, currentPeriod);
+  }
 
-export const timeWhenTimerStop = (time1, time2) => {
-  const deference = (time2.mins * 60 * 1000) - time1;
-  const minutes = ((deference / 1000) / 60);
-  const seconds = ((deference / 1000)) % 60;
-  const timeToShow = {
-    mins: Math.trunc(minutes),
-    secs: seconds.toFixed(0),
-  };
-  return timeToShow;
+  if (startTime) {
+    const clockTime = new Date().getTime();
+    const otherUsersAndFirstUserStartTimeDeference = calculateTimeDifference(clockTime, startTime);
+    return calculatePeriodDifference(otherUsersAndFirstUserStartTimeDeference, currentPeriod);
+  }
+
+  return [currentPeriod.mins, currentPeriod.secs];
 };

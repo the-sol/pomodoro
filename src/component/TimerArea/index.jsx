@@ -6,34 +6,11 @@ import firebase from '../firebase';
 import timeOverSound from './time-over-soundfx.wav';
 import {
   determineNextPeriod,
-  calculateTimeDifference,
-  calculatePeriodDifference,
+  calcNewStartStopTimes,
+  calcPomoClockTime,
 } from '../../services/timer';
 
 const timeOverSoundAudio = new Audio(timeOverSound);
-
-const calcPomoClockTime = (startTime, stopTime, currentPeriod) => {
-  if (stopTime) {
-    const diff = calculateTimeDifference(stopTime, startTime);
-    return calculatePeriodDifference(diff, currentPeriod);
-  }
-
-  if (startTime) {
-    const clockTime = new Date().getTime();
-    const diff = calculateTimeDifference(clockTime, startTime);
-    return calculatePeriodDifference(diff, currentPeriod);
-  }
-
-  return [currentPeriod.mins, currentPeriod.secs];
-};
-
-const calcNewStartStopTimes = (startTime, stopTime) => {
-  const clockTime = new Date().getTime();
-  const sub = stopTime ? stopTime - startTime : 0;
-  const newStartTime = clockTime - sub;
-  const newStopTime = null;
-  return [newStartTime, newStopTime];
-};
 
 const updateFirebaseTime = (newValues) => {
   firebase.firestore().collection('timer').doc('time').update(newValues);
@@ -143,6 +120,7 @@ const TimerArea = () => {
                   size="lg"
                   type="button"
                   onClick={handleStopClick}
+                  disabled={!state.isRunning}
                 >
                   Stop &#128564;
                 </Button>
