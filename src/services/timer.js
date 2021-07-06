@@ -7,9 +7,8 @@ export const PERIODS = {
 export const INITIAL_PERIOD = PERIODS.work;
 
 /**
- * A function that decreases the time by 1 second and calls
- * either the timeDecrementedCallback if the time is not over,
- * or calls timeOverCallback if the time is over.
+ * Decreases the time by 1 second and calls either the timeDecrementedCallback
+ * if the time is not over, or calls timeOverCallback if the time is over.
  * @param {number} mins number of minutes
  * @param {number} secs number of seconds
  * @param {function} timeDecrementedCallback function to call when time is
@@ -27,7 +26,7 @@ export const decrementOneSec = (mins, secs, timeDecrementedCallback, timeOverCal
 };
 
 /**
- * A function that determines the next period for the timer
+ * Determines the next period for the timer
  * @param {object} currentPeriod the current period object
  * @param {number} counter the number of periods that have end so far
  * @return {object} next period
@@ -79,6 +78,7 @@ export const calcNewStartStopTimes = (startTime, stopTime) => {
   const newStopTime = null;
   return [newStartTime, newStopTime];
 };
+
 /**
  * A function that take three parameters to clculate the time that appear on the UI
  * @param {number} startTime time in milliseconds
@@ -99,4 +99,52 @@ export const calcPomoClockTime = (startTime, stopTime, currentPeriod) => {
   }
 
   return [currentPeriod.mins, currentPeriod.secs];
+};
+
+/**
+ * Creates a notification object, which as a result immediately shows a
+ * notification on the screen for the user. Before calling this, make sure to
+ * check that the user has granted permission for showing notifications, since
+ * this function assumes the user has already granted access.
+ * @param {string} text the text to show inside the notification
+ * @string {icon} the URL of an image to show inside the notification
+ * @return {object} Notification object
+ */
+const createNotification = (text, icon) => new Notification('Pomodoro', {
+  body: text,
+  icon,
+});
+
+/**
+ * Shows a notification and picks the text for it based on the period.
+ * @period {object} Period object of the next period that is about to start
+ */
+const showNotificationForPeriod = (period) => {
+  let text = null;
+  const icon = 'https://source.unsplash.com/1600x900/?nature,water;';
+  if (period.id === 'long-brk') {
+    text = `Great job! Take a long break. You have ${PERIODS.longBrk.mins} minutes.`;
+  } else if (period.id === 'work') {
+    text = `Time to get back to work! Your next break starts in ${PERIODS.work.mins} minutes.`;
+  } else if (period.id === 'short-brk') {
+    text = `Nice work! Take a short break. You have ${PERIODS.shortBrk.mins} minutes.`;
+  }
+  createNotification(text, icon);
+};
+
+/**
+ * Shows a notification after ensuring the user has granted permission for
+ * showing notifications.
+ * @period {object} Period object of the next period that is about to start
+ */
+export const checkPermissionAndShowNotification = (period) => {
+  if (Notification.permission === 'granted') {
+    showNotificationForPeriod(period);
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        showNotificationForPeriod(period);
+      }
+    });
+  }
 };

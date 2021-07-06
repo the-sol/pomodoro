@@ -1,6 +1,8 @@
+/* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import PropTypes from 'prop-types';
 import Timer from '../Timer';
 import firebase from '../firebase';
 import timeOverSound from './time-over-soundfx.wav';
@@ -8,6 +10,7 @@ import {
   determineNextPeriod,
   calcNewStartStopTimes,
   calcPomoClockTime,
+  checkPermissionAndShowNotification,
 } from '../../services/timer';
 
 const timeOverSoundAudio = new Audio(timeOverSound);
@@ -16,7 +19,7 @@ const updateFirebaseTime = (newValues) => {
   firebase.firestore().collection('timer').doc('time').update(newValues);
 };
 
-const TimerArea = () => {
+const TimerArea = ({ shouldAutoStart }) => {
   const [state, setState] = useState({
     periodCounter: 0,
     currentPeriod: null,
@@ -61,9 +64,12 @@ const TimerArea = () => {
     timeOverSoundAudio.play();
     const newCounter = state.periodCounter + 1;
     const nextPeriod = determineNextPeriod(state.currentPeriod, newCounter);
+    const startTime = shouldAutoStart ? new Date().getTime() : null;
+
+    checkPermissionAndShowNotification(nextPeriod);
 
     updateFirebaseTime({
-      startTime: null,
+      startTime,
       stopTime: null,
       periodTime: nextPeriod,
       periodCounter: newCounter === 8 ? 0 : newCounter,
@@ -139,6 +145,10 @@ const TimerArea = () => {
       </Card.Body>
     </Card>
   );
+};
+
+TimerArea.propTypes = {
+  shouldAutoStart: PropTypes.bool.isRequired,
 };
 
 export default TimerArea;
