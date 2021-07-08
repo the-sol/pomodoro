@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
 import {
   decrementOneSec,
   determineNextPeriod,
   INITIAL_PERIOD,
+  // eslint-disable-next-line no-unused-vars
+  checkPermissionAndShowNotification,
 } from '../../services/timer';
 import timeOverSound from './time-over-soundfx.wav';
 
 const timeOverSoundAudio = new Audio(timeOverSound);
 
-const Timer = () => {
+const Timer = ({ shouldAutoStart }) => {
   const [[mins, secs], setTime] = useState([INITIAL_PERIOD.mins, INITIAL_PERIOD.secs]);
   const [isRunning, setIsRunning] = useState(false);
   const [currentPeriod, setCurrentPeriod] = useState(INITIAL_PERIOD);
@@ -23,11 +26,13 @@ const Timer = () => {
     const nextPeriod = determineNextPeriod(currentPeriod, counter);
     setCurrentPeriod(nextPeriod);
     setTime([nextPeriod.mins, nextPeriod.secs]);
+    if (shouldAutoStart) {
+      setIsRunning(true);
+    }
     if (counter === 7) {
       setCounter(0);
     }
   };
-
   useEffect(() => {
     if (!isRunning) {
       return;
@@ -60,6 +65,7 @@ const Timer = () => {
   return (
     <>
       <h1>
+        <h3>{currentPeriod.id}</h3>
         {`${mins.toString().padStart(2, '0')}:
         ${secs.toString().padStart(2, '0')}`}
         {' '}
@@ -72,6 +78,10 @@ const Timer = () => {
       </div>
     </>
   );
+};
+
+Timer.propTypes = {
+  shouldAutoStart: PropTypes.bool.isRequired,
 };
 
 export default Timer;

@@ -1,20 +1,10 @@
 .pomo-logo {
-    width: 40px;
-    height: 30px;
+  width: 40px;
+  height: 30px;
 }
 
-.setting-logo {
-    width: 22px;
-    height: 15px;
-    position: relative;
-    top: 14px;
-    left: 7px;
-}
-
-.login-logo {
-    width: 22px;
-    height: 15px;
-    position: relative;
-    top: 14px;
-    left: 8px;
+.header {
+  width:100%;
+  display: flex;
+  justify-content: space-between;
 }
