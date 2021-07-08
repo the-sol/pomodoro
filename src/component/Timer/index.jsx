@@ -30,6 +30,7 @@ const Timer = ({ shouldAutoStart }) => {
         counter.current = 0;
       }
       setCurrentPeriod(nextPeriod);
+      checkPermissionAndShowNotification(nextPeriod);
       setTime([nextPeriod.mins, nextPeriod.secs]);
       if (shouldAutoStart) {
         setIsRunning(true);
