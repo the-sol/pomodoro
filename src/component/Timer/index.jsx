@@ -17,6 +17,7 @@ const Timer = ({
       return;
     }
     const tick = () => decrementOneSec(mins, secs, setTime, onTimeOver);
+    console.log('despair');
     tickTimeoutId.current = setTimeout(tick, 1000);
   });
 

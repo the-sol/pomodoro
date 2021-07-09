@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -65,8 +64,8 @@ const TimerArea = ({ shouldAutoStart }) => {
     const newCounter = state.periodCounter + 1;
     const nextPeriod = determineNextPeriod(state.currentPeriod, newCounter);
     const startTime = shouldAutoStart ? new Date().getTime() : null;
-
     checkPermissionAndShowNotification(nextPeriod);
+    console.log('hi');
 
     updateFirebaseTime({
       startTime,
@@ -118,6 +117,7 @@ const TimerArea = ({ shouldAutoStart }) => {
                   size="lg"
                   type="button"
                   onClick={handleStartClick}
+                  disabled={state.isRunning}
                 >
                   Start &#128525;
                 </Button>
