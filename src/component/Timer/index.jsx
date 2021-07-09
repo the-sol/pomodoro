@@ -5,7 +5,6 @@ import {
   decrementOneSec,
   determineNextPeriod,
   INITIAL_PERIOD,
-  // eslint-disable-next-line no-unused-vars
   checkPermissionAndShowNotification,
 } from '../../services/timer';
 import timeOverSound from './time-over-soundfx.wav';
@@ -25,6 +24,7 @@ const Timer = ({ shouldAutoStart }) => {
     setCounter(counter + 1);
     const nextPeriod = determineNextPeriod(currentPeriod, counter);
     setCurrentPeriod(nextPeriod);
+    checkPermissionAndShowNotification(nextPeriod);
     setTime([nextPeriod.mins, nextPeriod.secs]);
     if (shouldAutoStart) {
       setIsRunning(true);
