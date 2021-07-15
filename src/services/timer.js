@@ -1,10 +1,8 @@
-export const PERIODS = {
-  work: { id: 'work', mins: 25, secs: 0 },
-  shortBrk: { id: 'short-brk', mins: 5, secs: 0 },
-  longBrk: { id: 'long-brk', mins: 15, secs: 0 },
-};
+let periods = {};
 
-export const INITIAL_PERIOD = PERIODS.work;
+export const setPeriods = (newPeriods) => {
+  periods = newPeriods;
+};
 
 /**
  * Decreases the time by 1 second and calls either the timeDecrementedCallback
@@ -33,14 +31,14 @@ export const decrementOneSec = (mins, secs, timeDecrementedCallback, timeOverCal
  */
 export const determineNextPeriod = (currentPeriod, counter) => {
   if (counter === 7) {
-    return PERIODS.longBrk;
+    return periods.longBrk;
   }
 
   if (currentPeriod.id === 'work') {
-    return PERIODS.shortBrk;
+    return periods.shortBrk;
   }
 
-  return PERIODS.work;
+  return periods.work;
 };
 
 /**
@@ -65,11 +63,11 @@ const showNotificationForPeriod = (period) => {
   let text = null;
   const icon = 'https://source.unsplash.com/1600x900/?nature,water;';
   if (period.id === 'long-brk') {
-    text = `Great job! Take a long break. You have ${PERIODS.longBrk.mins} minutes.`;
+    text = `Great job! Take a long break. You have ${periods.longBrk.mins} minutes.`;
   } else if (period.id === 'work') {
-    text = `Time to get back to work! Your next break starts in ${PERIODS.work.mins} minutes.`;
+    text = `Time to get back to work! Your next break starts in ${periods.work.mins} minutes.`;
   } else if (period.id === 'short-brk') {
-    text = `Nice work! Take a short break. You have ${PERIODS.shortBrk.mins} minutes.`;
+    text = `Nice work! Take a short break. You have ${periods.shortBrk.mins} minutes.`;
   }
   createNotification(text, icon);
 };
