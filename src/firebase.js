@@ -1,8 +1,5 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import firebase from 'firebase/app';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import 'firebase/firestore';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import 'firebase/database';
 
 // Your web app's Firebase configuration
