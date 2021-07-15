@@ -4,15 +4,17 @@ import PropTypes from 'prop-types';
 import {
   decrementOneSec,
   determineNextPeriod,
+  checkPermissionAndShowNotification,
 } from '../../services/timer';
 import timeOverSound from './time-over-soundfx.wav';
 
 const timeOverSoundAudio = new Audio(timeOverSound);
 
 const Timer = ({ shouldAutoStart, periods }) => {
-  const [[mins, secs], setTime] = useState([periods.work.mins, periods.work.secs]);
+  const initialPeriod = periods.work;
+  const [[mins, secs], setTime] = useState([initialPeriod.mins, initialPeriod.secs]);
   const [isRunning, setIsRunning] = useState(false);
-  const [currentPeriod, setCurrentPeriod] = useState(periods.work);
+  const [currentPeriod, setCurrentPeriod] = useState(initialPeriod);
   const tickTimeoutId = useRef(0);
   const counter = useRef(0);
   useEffect(() => {
@@ -24,10 +26,11 @@ const Timer = ({ shouldAutoStart, periods }) => {
       setIsRunning(false);
       counter.current += 1;
       const nextPeriod = determineNextPeriod(currentPeriod, counter.current);
-      if (counter.current === 7) {
+      if (counter.current === 8) {
         counter.current = 0;
       }
       setCurrentPeriod(nextPeriod);
+      checkPermissionAndShowNotification(nextPeriod);
       setTime([nextPeriod.mins, nextPeriod.secs]);
       if (shouldAutoStart) {
         setIsRunning(true);
@@ -49,6 +52,7 @@ const Timer = ({ shouldAutoStart, periods }) => {
   return (
     <>
       <h1>
+        <h3>{currentPeriod.id}</h3>
         {`${mins.toString().padStart(2, '0')}:
         ${secs.toString().padStart(2, '0')}`}
         {' '}
