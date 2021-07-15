@@ -12,7 +12,6 @@ import { initializePeriods } from './services/timer';
 
 const App = () => {
   const [shouldAutoStart, setShouldAutoStart] = useState(false);
-  const toggleShouldAutoStart = () => { setShouldAutoStart(!shouldAutoStart); };
   const [dataOfPeriods, setDataOfPeriods] = useState(null);
 
   useEffect(() => {
@@ -25,7 +24,6 @@ const App = () => {
         initializePeriods(dbPeriods);
         setDataOfPeriods(dbPeriods);
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (!dataOfPeriods) {
     return (
@@ -34,6 +32,9 @@ const App = () => {
       </Spinner>
     );
   }
+
+  const toggleShouldAutoStart = () => { setShouldAutoStart(!shouldAutoStart); };
+
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header
