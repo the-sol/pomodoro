@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';

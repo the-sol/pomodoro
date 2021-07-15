@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -8,6 +7,7 @@ import firebase from '../../firebase';
 
 const SettingsForm = ({ onShouldAutoStartChange, shouldAutoStart, dataOfPeriods }) => {
   const [periods, setPeriods] = useState(dataOfPeriods);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     Object.assign(dataOfPeriods, periods);
@@ -15,6 +15,7 @@ const SettingsForm = ({ onShouldAutoStartChange, shouldAutoStart, dataOfPeriods 
       data: periods,
     });
   };
+
   const changePeriod = (periodName, propertyKey, propertyValue) => {
     setPeriods({
       ...periods,
@@ -24,6 +25,7 @@ const SettingsForm = ({ onShouldAutoStartChange, shouldAutoStart, dataOfPeriods 
       },
     });
   };
+
   return (
     <Form onSubmit={handleSubmit}>
       {Object.keys(periods).map((period) => (
