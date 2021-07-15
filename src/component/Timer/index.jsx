@@ -16,39 +16,52 @@ const Timer = ({ shouldAutoStart, periods }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [currentPeriod, setCurrentPeriod] = useState(initialPeriod);
   const tickTimeoutId = useRef(0);
-  const counter = useRef(0);
+  const [counter, setCounter] = useState(1);
+
+  const endCurrentAndStartNextPeriod = () => {
+    timeOverSoundAudio.play();
+    setIsRunning(false);
+    setCounter(counter + 1);
+    const nextPeriod = determineNextPeriod(currentPeriod, counter);
+    setCurrentPeriod(nextPeriod);
+    checkPermissionAndShowNotification(nextPeriod);
+    setTime([nextPeriod.mins, nextPeriod.secs]);
+    if (shouldAutoStart) {
+      setIsRunning(true);
+    }
+    if (counter === 7) {
+      setCounter(0);
+    }
+  };
   useEffect(() => {
     if (!isRunning) {
       return;
     }
-    const reset = () => {
-      timeOverSoundAudio.play();
-      setIsRunning(false);
-      counter.current += 1;
-      const nextPeriod = determineNextPeriod(currentPeriod, counter.current);
-      if (counter.current === 8) {
-        counter.current = 0;
-      }
-      setCurrentPeriod(nextPeriod);
-      checkPermissionAndShowNotification(nextPeriod);
-      setTime([nextPeriod.mins, nextPeriod.secs]);
-      if (shouldAutoStart) {
-        setIsRunning(true);
-      }
-    };
-    const tick = () => decrementOneSec(mins, secs, setTime, reset);
+    const tick = () => decrementOneSec(mins, secs, setTime, endCurrentAndStartNextPeriod);
     tickTimeoutId.current = setTimeout(tick, 1000);
   });
+  const stopTime = () => {
+    setIsRunning(false);
+    clearTimeout(tickTimeoutId.current);
+  };
 
   const handleStartClick = () => {
     setIsRunning(true);
   };
 
   const handleStopClick = () => {
-    setIsRunning(false);
-    clearTimeout(tickTimeoutId.current);
+    stopTime();
   };
 
+  const handleResetClick = () => {
+    stopTime();
+    setTime([currentPeriod.mins, currentPeriod.secs]);
+  };
+
+  const handleNextClick = () => {
+    endCurrentAndStartNextPeriod();
+    clearTimeout(tickTimeoutId.current);
+  };
   return (
     <>
       <h1>
@@ -60,6 +73,8 @@ const Timer = ({ shouldAutoStart, periods }) => {
       <div className="d-flex justify-content-around">
         <Button variant="dark" size="lg" type="button" onClick={handleStartClick}>Start &#128525;</Button>
         <Button variant="info" size="lg" type="button" onClick={handleStopClick}>Stop &#128564;</Button>
+        <Button variant="info" size="lg" type="button" onClick={handleResetClick}>Reset &#9194;</Button>
+        <Button variant="dark" size="lg" type="button" onClick={handleNextClick}>Next &#9193;</Button>
       </div>
     </>
   );
