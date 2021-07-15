@@ -11,7 +11,7 @@ import pomoLogo from '../../Logo/PomoLogo.png';
 function Header({
   onShouldAutoStartChange,
   shouldAutoStart,
-  dataOfPeriods,
+  periods,
 }) {
   const [show, setShow] = useState(false);
   const toggleShow = () => setShow(!show);
@@ -36,7 +36,7 @@ function Header({
             show={show}
             onShouldAutoStartChange={onShouldAutoStartChange}
             shouldAutoStart={shouldAutoStart}
-            dataOfPeriods={dataOfPeriods}
+            periods={periods}
           />
         </Nav>
       </Navbar.Collapse>
@@ -47,7 +47,7 @@ function Header({
 Header.propTypes = {
   onShouldAutoStartChange: PropTypes.func.isRequired,
   shouldAutoStart: PropTypes.bool.isRequired,
-  dataOfPeriods: PropTypes.objectOf(
+  periods: PropTypes.objectOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       mins: PropTypes.number.isRequired,

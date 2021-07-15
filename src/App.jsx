@@ -12,19 +12,19 @@ import { setPeriods as setTimerServicePeriods } from './services/timer';
 
 const App = () => {
   const [shouldAutoStart, setShouldAutoStart] = useState(false);
-  const [dataOfPeriods, setDataOfPeriods] = useState(null);
+  const [periods, setPeriods] = useState(null);
 
   useEffect(() => {
     firebase.firestore()
-      .collection('SettingsData')
-      .doc('PeriodsData')
+      .collection('timer')
+      .doc('settings')
       .onSnapshot((doc) => {
-        const dbPeriods = doc.data().data;
+        const dbPeriods = doc.data().periods;
         setTimerServicePeriods(dbPeriods);
-        setDataOfPeriods(dbPeriods);
+        setPeriods(dbPeriods);
       });
   }, []);
-  if (!dataOfPeriods) {
+  if (!periods) {
     return (
       <Spinner className="spinner" animation="border" role="status">
         <span className="sr-only">Loading...</span>
@@ -39,12 +39,12 @@ const App = () => {
       <Header
         onShouldAutoStartChange={toggleShouldAutoStart}
         shouldAutoStart={shouldAutoStart}
-        dataOfPeriods={dataOfPeriods}
+        periods={periods}
       />
       <Container fluid className="my-auto">
         <Row className="mt-3">
           <Col md={{ span: 6, offset: 3 }}>
-            <TimerArea shouldAutoStart={shouldAutoStart} dataOfPeriods={dataOfPeriods} />
+            <TimerArea shouldAutoStart={shouldAutoStart} periods={periods} />
           </Col>
         </Row>
       </Container>

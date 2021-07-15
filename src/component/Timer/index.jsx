@@ -9,10 +9,10 @@ import timeOverSound from './time-over-soundfx.wav';
 
 const timeOverSoundAudio = new Audio(timeOverSound);
 
-const Timer = ({ shouldAutoStart, dataOfPeriods }) => {
-  const [[mins, secs], setTime] = useState([dataOfPeriods.work.mins, dataOfPeriods.work.secs]);
+const Timer = ({ shouldAutoStart, periods }) => {
+  const [[mins, secs], setTime] = useState([periods.work.mins, periods.work.secs]);
   const [isRunning, setIsRunning] = useState(false);
-  const [currentPeriod, setCurrentPeriod] = useState(dataOfPeriods.work);
+  const [currentPeriod, setCurrentPeriod] = useState(periods.work);
   const tickTimeoutId = useRef(0);
   const counter = useRef(0);
   useEffect(() => {
@@ -63,7 +63,7 @@ const Timer = ({ shouldAutoStart, dataOfPeriods }) => {
 
 Timer.propTypes = {
   shouldAutoStart: PropTypes.bool.isRequired,
-  dataOfPeriods: PropTypes.objectOf(
+  periods: PropTypes.objectOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       mins: PropTypes.number.isRequired,

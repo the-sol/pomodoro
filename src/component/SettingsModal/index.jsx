@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SettingsForm from '../SettingsForm';
 
 function SettingsModal({
-  toggleShow, show, onShouldAutoStartChange, shouldAutoStart, dataOfPeriods,
+  toggleShow, show, onShouldAutoStartChange, shouldAutoStart, periods,
 }) {
   return (
     <Modal show={show} onHide={toggleShow}>
@@ -15,7 +15,7 @@ function SettingsModal({
         <SettingsForm
           onShouldAutoStartChange={onShouldAutoStartChange}
           shouldAutoStart={shouldAutoStart}
-          dataOfPeriods={dataOfPeriods}
+          periods={periods}
         />
       </Modal.Body>
     </Modal>
@@ -27,7 +27,7 @@ SettingsModal.propTypes = {
   onShouldAutoStartChange: PropTypes.func.isRequired,
   shouldAutoStart: PropTypes.bool.isRequired,
   show: PropTypes.bool,
-  dataOfPeriods: PropTypes.objectOf(
+  periods: PropTypes.objectOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       mins: PropTypes.number.isRequired,

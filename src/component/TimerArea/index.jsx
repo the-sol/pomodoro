@@ -3,17 +3,17 @@ import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import Timer from '../Timer';
 
-const TimerArea = ({ shouldAutoStart, dataOfPeriods }) => (
+const TimerArea = ({ shouldAutoStart, periods }) => (
   <Card>
     <Card.Body className="text-center">
-      <Timer shouldAutoStart={shouldAutoStart} dataOfPeriods={dataOfPeriods} />
+      <Timer shouldAutoStart={shouldAutoStart} periods={periods} />
     </Card.Body>
   </Card>
 );
 
 TimerArea.propTypes = {
   shouldAutoStart: PropTypes.bool.isRequired,
-  dataOfPeriods: PropTypes.objectOf(
+  periods: PropTypes.objectOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       mins: PropTypes.number.isRequired,
