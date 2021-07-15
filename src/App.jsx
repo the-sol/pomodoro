@@ -8,7 +8,7 @@ import TimerArea from './component/TimerArea';
 import Footer from './component/Footer';
 import Header from './component/Header';
 import firebase from './firebase';
-import { initializePeriods } from './services/timer';
+import { setPeriods as setTimerServicePeriods } from './services/timer';
 
 const App = () => {
   const [shouldAutoStart, setShouldAutoStart] = useState(false);
@@ -18,10 +18,9 @@ const App = () => {
     firebase.firestore()
       .collection('SettingsData')
       .doc('PeriodsData')
-      .get()
-      .then((doc) => {
+      .onSnapshot((doc) => {
         const dbPeriods = doc.data().data;
-        initializePeriods(dbPeriods);
+        setTimerServicePeriods(dbPeriods);
         setDataOfPeriods(dbPeriods);
       });
   }, []);

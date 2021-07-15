@@ -10,7 +10,6 @@ const SettingsForm = ({ onShouldAutoStartChange, shouldAutoStart, dataOfPeriods 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Object.assign(dataOfPeriods, periods);
     firebase.firestore().collection('SettingsData').doc('PeriodsData').update({
       data: periods,
     });
