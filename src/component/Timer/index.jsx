@@ -17,11 +17,16 @@ const Timer = ({
       return;
     }
     const tick = () => decrementOneSec(mins, secs, setTime, onTimeOver);
-    console.log('despair');
     tickTimeoutId.current = setTimeout(tick, 1000);
   });
 
-  useEffect(() => setTime(startTime), [startTime]);
+  useEffect(() => {
+    if (isRunning) {
+      return;
+    }
+
+    setTime(startTime);
+  }, [startTime, isRunning]);
 
   if (!isRunning && tickTimeoutId.current) {
     clearTimeout(tickTimeoutId.current);

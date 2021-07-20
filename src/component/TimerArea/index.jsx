@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import Timer from '../Timer';
-import firebase from '../firebase';
+import firebase from '../../firebase';
 import timeOverSound from './time-over-soundfx.wav';
 import {
   determineNextPeriod,
@@ -65,7 +65,6 @@ const TimerArea = ({ shouldAutoStart }) => {
     const nextPeriod = determineNextPeriod(state.currentPeriod, newCounter);
     const startTime = shouldAutoStart ? new Date().getTime() : null;
     checkPermissionAndShowNotification(nextPeriod);
-    console.log('hi');
 
     updateFirebaseTime({
       startTime,
@@ -137,7 +136,16 @@ const TimerArea = ({ shouldAutoStart }) => {
                   onClick={handleResetClick}
                   disabled={state.isRunning}
                 >
-                  Reset
+                  Reset &#9194;
+                </Button>
+                <Button
+                  variant="dark"
+                  size="lg"
+                  type="button"
+                  onClick={handleTimeOver}
+                  disabled={state.isRunning}
+                >
+                  Next &#9193;
                 </Button>
               </div>
             </>
