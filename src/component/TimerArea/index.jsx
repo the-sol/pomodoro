@@ -41,8 +41,8 @@ const TimerArea = ({ shouldAutoStart }) => {
       const isRunning = !!startTime && !stopTime;
       const timeToShow = calcPomoClockTime(startTime, stopTime, periodTime);
 
-      setState({
-        ...state,
+      setState((s) => ({
+        ...s,
         periodCounter,
         currentPeriod: periodTime,
         startTime,
@@ -50,7 +50,7 @@ const TimerArea = ({ shouldAutoStart }) => {
         isRunning,
         isLoading: false,
         timeToShow,
-      });
+      }));
     };
 
     firebase.firestore()
