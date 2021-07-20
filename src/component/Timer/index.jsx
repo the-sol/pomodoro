@@ -1,94 +1,50 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import {
   decrementOneSec,
-  determineNextPeriod,
-  checkPermissionAndShowNotification,
 } from '../../services/timer';
-import timeOverSound from './time-over-soundfx.wav';
 
-const timeOverSoundAudio = new Audio(timeOverSound);
-
-const Timer = ({ shouldAutoStart, periods }) => {
-  const initialPeriod = periods.work;
-  const [[mins, secs], setTime] = useState([initialPeriod.mins, initialPeriod.secs]);
-  const [isRunning, setIsRunning] = useState(false);
-  const [currentPeriod, setCurrentPeriod] = useState(initialPeriod);
+const Timer = ({
+  startTime,
+  isRunning,
+  onTimeOver,
+}) => {
+  const [[mins, secs], setTime] = useState(startTime);
   const tickTimeoutId = useRef(0);
-  const [counter, setCounter] = useState(1);
 
-  const endCurrentAndStartNextPeriod = () => {
-    timeOverSoundAudio.play();
-    setIsRunning(false);
-    setCounter(counter + 1);
-    const nextPeriod = determineNextPeriod(currentPeriod, counter);
-    setCurrentPeriod(nextPeriod);
-    checkPermissionAndShowNotification(nextPeriod);
-    setTime([nextPeriod.mins, nextPeriod.secs]);
-    if (shouldAutoStart) {
-      setIsRunning(true);
-    }
-    if (counter === 7) {
-      setCounter(0);
-    }
-  };
   useEffect(() => {
     if (!isRunning) {
       return;
     }
-    const tick = () => decrementOneSec(mins, secs, setTime, endCurrentAndStartNextPeriod);
+    const tick = () => decrementOneSec(mins, secs, setTime, onTimeOver);
     tickTimeoutId.current = setTimeout(tick, 1000);
   });
-  const stopTime = () => {
-    setIsRunning(false);
+
+  useEffect(() => {
+    if (isRunning) {
+      return;
+    }
+
+    setTime(startTime);
+  }, [startTime, isRunning]);
+
+  if (!isRunning && tickTimeoutId.current) {
     clearTimeout(tickTimeoutId.current);
-  };
+  }
 
-  const handleStartClick = () => {
-    setIsRunning(true);
-  };
-
-  const handleStopClick = () => {
-    stopTime();
-  };
-
-  const handleResetClick = () => {
-    stopTime();
-    setTime([currentPeriod.mins, currentPeriod.secs]);
-  };
-
-  const handleNextClick = () => {
-    endCurrentAndStartNextPeriod();
-    clearTimeout(tickTimeoutId.current);
-  };
   return (
-    <>
-      <h1>
-        <h3>{currentPeriod.id}</h3>
-        {`${mins.toString().padStart(2, '0')}:
-        ${secs.toString().padStart(2, '0')}`}
-        {' '}
-      </h1>
-      <div className="d-flex justify-content-around">
-        <Button variant="dark" size="lg" type="button" onClick={handleStartClick}>Start &#128525;</Button>
-        <Button variant="info" size="lg" type="button" onClick={handleStopClick}>Stop &#128564;</Button>
-        <Button variant="info" size="lg" type="button" onClick={handleResetClick}>Reset &#9194;</Button>
-        <Button variant="dark" size="lg" type="button" onClick={handleNextClick}>Next &#9193;</Button>
-      </div>
-    </>
+    <h1>
+      {`${mins.toString().padStart(2, '0')}:
+      ${secs.toString().padStart(2, '0')}`}
+      {' '}
+    </h1>
   );
 };
 
 Timer.propTypes = {
-  shouldAutoStart: PropTypes.bool.isRequired,
-  periods: PropTypes.objectOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      mins: PropTypes.number.isRequired,
-      secs: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
+  startTime: PropTypes.arrayOf(PropTypes.number).isRequired,
+  isRunning: PropTypes.bool.isRequired,
+  onTimeOver: PropTypes.func.isRequired,
 };
 
 export default Timer;
